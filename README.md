@@ -21,6 +21,7 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Shared PageHeader
 - Shared SummaryCardGrid
 - Shared StatusBadge
+- Shared DataTableCard
 - Mock Data
 
 ## Current Page Routes
@@ -43,6 +44,13 @@ The current Demo Kit includes 5 business modules:
 
 The project has moved from page-by-page stacking into shared pattern extraction for reusable admin UI structures.
 
+The current Demo Kit includes foundational shared list page patterns:
+
+- PageHeader
+- SummaryCardGrid
+- StatusBadge
+- DataTableCard
+
 ## Tech Stack
 
 - Next.js
@@ -57,6 +65,7 @@ The project has moved from page-by-page stacking into shared pattern extraction 
 - `src/components/page-header.tsx`: Shared page title, description, and action area.
 - `src/components/summary-card-grid.tsx`: Shared summary card layout for module overview metrics.
 - `src/components/status-badge.tsx`: Shared status badge for consistent status display across modules.
+- `src/components/data-table-card.tsx`: Shared search + table card pattern for list pages.
 - `src/components/work-order-summary-cards.tsx`: Shows the Work Orders status summary cards.
 - `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
 - `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
@@ -78,7 +87,7 @@ The project has moved from page-by-page stacking into shared pattern extraction 
 
 ## Next Steps
 
-- Extract shared table patterns
 - Add detail drawers for Customers / Assets / Billing
 - Add Settings module
 - Improve responsive layout
+- Polish visual consistency
