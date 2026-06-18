@@ -1,5 +1,6 @@
 import { AdminShell } from "@/components/admin-shell";
 import { DataTableCard } from "@/components/data-table-card";
+import { LoadingState } from "@/components/loading-state";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
@@ -96,6 +97,14 @@ export default function SettingsPage() {
             <StatusBadge key={`${rule.rule}-status`} status={rule.status} />,
           ])}
         />
+
+        <section className="grid gap-3">
+          <h2 className="text-base font-medium">System Sync Status</h2>
+          <LoadingState
+            title="Syncing system controls"
+            description="Permission rules, notification settings, and audit checks are being prepared."
+          />
+        </section>
       </div>
     </AdminShell>
   );
