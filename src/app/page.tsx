@@ -1,65 +1,728 @@
-import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+
+const tabs = ["All", "Open", "Assigned", "In Progress", "Review", "Completed"];
+const statusOptions = [
+  "All",
+  "Open",
+  "Assigned",
+  "In Progress",
+  "Review",
+  "Completed",
+];
+const priorityOptions = ["All", "Critical", "High", "Medium", "Low"];
+const assigneeOptions = [
+  "All",
+  "Maya Chen",
+  "Owen Brooks",
+  "Priya Shah",
+  "Leo Martins",
+  "Nina Patel",
+  "Ethan Walker",
+];
+const scheduledTimeOptions = ["Any time", "Today", "This week", "This month"];
+const createPriorityOptions = ["Critical", "High", "Medium", "Low"];
+const createAssigneeOptions = [
+  "Unassigned",
+  "Maya Chen",
+  "Owen Brooks",
+  "Priya Shah",
+  "Leo Martins",
+  "Nina Patel",
+  "Ethan Walker",
+];
+
+type WorkOrderStatus =
+  | "Open"
+  | "Assigned"
+  | "In Progress"
+  | "Review"
+  | "Completed";
+type WorkOrderPriority = "Low" | "Medium" | "High" | "Critical";
+
+type WorkOrder = {
+  id: string;
+  title: string;
+  customer: string;
+  assetLocation: string;
+  status: WorkOrderStatus;
+  priority: WorkOrderPriority;
+  assignee: string;
+  scheduledTime: string;
+  description: string;
+};
+
+const workOrders: WorkOrder[] = [
+  {
+    id: "WO-1001",
+    title: "Configure approval routing",
+    customer: "Acme Operations",
+    assetLocation: "Workflow Engine",
+    status: "Open",
+    priority: "High",
+    assignee: "Maya Chen",
+    scheduledTime: "Jun 20, 2026 09:00",
+    description:
+      "Set up routing rules so incoming approval requests are assigned to the correct operations reviewers.",
+  },
+  {
+    id: "WO-1002",
+    title: "Review invoice exception queue",
+    customer: "Northstar Labs",
+    assetLocation: "Finance Ops",
+    status: "Assigned",
+    priority: "Medium",
+    assignee: "Owen Brooks",
+    scheduledTime: "Jun 20, 2026 11:30",
+    description:
+      "Review failed invoice exceptions and prepare the queue for finance operations follow-up.",
+  },
+  {
+    id: "WO-1003",
+    title: "Update access policy mapping",
+    customer: "Summit Retail",
+    assetLocation: "Identity Console",
+    status: "In Progress",
+    priority: "High",
+    assignee: "Priya Shah",
+    scheduledTime: "Jun 21, 2026 14:00",
+    description:
+      "Update role-to-policy mappings to keep customer access aligned with the latest operating model.",
+  },
+  {
+    id: "WO-1004",
+    title: "Validate data sync checkpoint",
+    customer: "Orbit Systems",
+    assetLocation: "Integration Hub",
+    status: "Review",
+    priority: "Low",
+    assignee: "Leo Martins",
+    scheduledTime: "Jun 22, 2026 10:15",
+    description:
+      "Validate the latest integration checkpoint and confirm downstream systems received complete data.",
+  },
+  {
+    id: "WO-1005",
+    title: "Resolve SLA notification issue",
+    customer: "Vertex Cloud",
+    assetLocation: "Notification Service",
+    status: "Open",
+    priority: "Critical",
+    assignee: "Nina Patel",
+    scheduledTime: "Jun 22, 2026 16:45",
+    description:
+      "Investigate missed SLA notifications and restore reliable alert delivery for customer operations.",
+  },
+  {
+    id: "WO-1006",
+    title: "Complete quarterly account audit",
+    customer: "Helio Manufacturing",
+    assetLocation: "Customer Success",
+    status: "Completed",
+    priority: "Medium",
+    assignee: "Ethan Walker",
+    scheduledTime: "Jun 23, 2026 13:00",
+    description:
+      "Complete a scheduled account audit and document any operational follow-up items.",
+  },
+];
+
+const statusVariant = {
+  Open: "outline",
+  Assigned: "secondary",
+  "In Progress": "default",
+  Review: "secondary",
+  Completed: "outline",
+} as const;
+
+const priorityVariant = {
+  Low: "outline",
+  Medium: "secondary",
+  High: "default",
+  Critical: "destructive",
+} as const;
+
+const recommendedNextAction = {
+  Open: "Assign this work order to an operator.",
+  Assigned: "Wait for the assignee to start progress.",
+  "In Progress": "Monitor progress and review updates.",
+  Review: "Review the work result and confirm completion.",
+  Completed: "No further action required.",
+} as const;
+
+const availableActions = {
+  Open: ["Assign", "Close"],
+  Assigned: ["Start Progress", "Reassign"],
+  "In Progress": ["Add Update", "Mark for Review"],
+  Review: ["Approve", "Request Changes"],
+  Completed: ["Reopen"],
+} as const;
+
+const statusSummary = [
+  {
+    status: "Open",
+    count: 2,
+    description: "Waiting for assignment",
+  },
+  {
+    status: "Assigned",
+    count: 1,
+    description: "Assigned to an operator",
+  },
+  {
+    status: "In Progress",
+    count: 1,
+    description: "Currently being worked on",
+  },
+  {
+    status: "Review",
+    count: 1,
+    description: "Waiting for final review",
+  },
+];
+
+const sidebarItems = [
+  "Dashboard",
+  "Work Orders",
+  "Customers",
+  "Assets",
+  "Billing",
+  "Reports",
+  "Settings",
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-muted/30">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r bg-background md:flex">
+        <div className="border-b px-5 py-5">
+          <div className="text-lg font-semibold tracking-tight">OpsKit</div>
+          <div className="text-xs text-muted-foreground">Admin Demo Kit</div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
+          {sidebarItems.map((item) => (
+            <button
+              key={item}
+              className={
+                item === "Work Orders"
+                  ? "rounded-lg bg-muted px-3 py-2 text-left text-sm font-medium text-foreground"
+                  : "rounded-lg px-3 py-2 text-left text-sm text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+              }
+              type="button"
+            >
+              {item}
+            </button>
+          ))}
+        </nav>
+      </aside>
+
+      <div className="md:pl-60">
+        <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b bg-background/95 px-6">
+          <div className="text-sm font-medium">Operations Workspace</div>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <span>Search</span>
+            <span>Notifications</span>
+            <span className="font-medium text-foreground">Wang Li</span>
+          </div>
+        </header>
+
+        <main className="px-6 py-8">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-semibold tracking-tight">
+              Work Orders
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Track, assign, and review operational work orders.
+            </p>
+          </div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button>Create Work Order</Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="overflow-y-auto sm:max-w-md">
+              <SheetHeader>
+                <SheetTitle>Create Work Order</SheetTitle>
+                <SheetDescription>
+                  Capture the basic information needed to route a new
+                  operational request.
+                </SheetDescription>
+              </SheetHeader>
+
+              <Separator />
+
+              <div className="grid gap-4 px-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="create-title">Title</Label>
+                  <Input
+                    id="create-title"
+                    placeholder="Enter work order title"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="create-customer">Customer</Label>
+                  <Input
+                    id="create-customer"
+                    placeholder="Enter customer name"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="create-asset-location">
+                    Asset / Location
+                  </Label>
+                  <Input
+                    id="create-asset-location"
+                    placeholder="Enter asset or location"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="create-priority">Priority</Label>
+                  <Select>
+                    <SelectTrigger id="create-priority" className="w-full">
+                      <SelectValue placeholder="Select priority" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {createPriorityOptions.map((priority) => (
+                        <SelectItem key={priority} value={priority}>
+                          {priority}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="create-assignee">Assignee</Label>
+                  <Select>
+                    <SelectTrigger id="create-assignee" className="w-full">
+                      <SelectValue placeholder="Select assignee" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {createAssigneeOptions.map((assignee) => (
+                        <SelectItem key={assignee} value={assignee}>
+                          {assignee}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="create-scheduled-time">Scheduled Time</Label>
+                  <Input
+                    id="create-scheduled-time"
+                    placeholder="Jun 24, 2026 10:00"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="create-description">Description</Label>
+                  <Textarea
+                    id="create-description"
+                    placeholder="Describe the work order context and expected outcome"
+                  />
+                </div>
+              </div>
+
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </SheetClose>
+                <Button>Create Work Order</Button>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
+        </header>
+
+        <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {statusSummary.map((item) => (
+            <Card key={item.status} size="sm">
+              <CardHeader className="gap-2">
+                <div className="flex items-center justify-between gap-3">
+                  <CardTitle>{item.status}</CardTitle>
+                  <span className="text-2xl font-semibold tabular-nums">
+                    {item.count}
+                  </span>
+                </div>
+                <CardDescription>{item.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </section>
+
+        <Tabs defaultValue="All" className="gap-4">
+          <TabsList className="flex h-auto w-full flex-wrap justify-start sm:w-fit">
+            {tabs.map((tab) => (
+              <TabsTrigger key={tab} value={tab}>
+                {tab}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Work order queue</CardTitle>
+              <CardDescription>
+                A static overview of current operational requests.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Sheet>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <Input
+                    aria-label="Search work orders"
+                    className="sm:flex-1"
+                    placeholder="Search by ID, title, customer, or assignee"
+                  />
+                  <SheetTrigger asChild>
+                    <Button variant="outline">Filter</Button>
+                  </SheetTrigger>
+                </div>
+
+                <SheetContent side="right">
+                  <SheetHeader>
+                    <SheetTitle>Filter Work Orders</SheetTitle>
+                    <SheetDescription>
+                      Refine the work order queue by operational attributes.
+                    </SheetDescription>
+                  </SheetHeader>
+
+                  <Separator />
+
+                  <div className="grid gap-4 px-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="status-filter">Status</Label>
+                      <Select defaultValue="All">
+                        <SelectTrigger id="status-filter" className="w-full">
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {statusOptions.map((status) => (
+                            <SelectItem key={status} value={status}>
+                              {status}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Label htmlFor="priority-filter">Priority</Label>
+                      <Select defaultValue="All">
+                        <SelectTrigger id="priority-filter" className="w-full">
+                          <SelectValue placeholder="Select priority" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {priorityOptions.map((priority) => (
+                            <SelectItem key={priority} value={priority}>
+                              {priority}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Label htmlFor="assignee-filter">Assignee</Label>
+                      <Select defaultValue="All">
+                        <SelectTrigger id="assignee-filter" className="w-full">
+                          <SelectValue placeholder="Select assignee" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {assigneeOptions.map((assignee) => (
+                            <SelectItem key={assignee} value={assignee}>
+                              {assignee}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Label htmlFor="scheduled-time-filter">
+                        Scheduled Time
+                      </Label>
+                      <Select defaultValue="Any time">
+                        <SelectTrigger
+                          id="scheduled-time-filter"
+                          className="w-full"
+                        >
+                          <SelectValue placeholder="Select scheduled time" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {scheduledTimeOptions.map((scheduledTime) => (
+                            <SelectItem
+                              key={scheduledTime}
+                              value={scheduledTime}
+                            >
+                              {scheduledTime}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <SheetFooter>
+                    <Button variant="outline">Reset</Button>
+                    <Button>Apply Filters</Button>
+                  </SheetFooter>
+                </SheetContent>
+              </Sheet>
+
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Customer</TableHead>
+                    <TableHead>Asset / Location</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Priority</TableHead>
+                    <TableHead>Assignee</TableHead>
+                    <TableHead>Scheduled Time</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {workOrders.map((workOrder) => (
+                    <TableRow key={workOrder.id}>
+                      <TableCell className="font-medium">
+                        {workOrder.id}
+                      </TableCell>
+                      <TableCell>{workOrder.title}</TableCell>
+                      <TableCell>{workOrder.customer}</TableCell>
+                      <TableCell>{workOrder.assetLocation}</TableCell>
+                      <TableCell>
+                        <Badge variant={statusVariant[workOrder.status]}>
+                          {workOrder.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={priorityVariant[workOrder.priority]}>
+                          {workOrder.priority}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{workOrder.assignee}</TableCell>
+                      <TableCell>{workOrder.scheduledTime}</TableCell>
+                      <TableCell>
+                        <Sheet>
+                          <SheetTrigger asChild>
+                            <Button variant="outline" size="sm">
+                              View Details
+                            </Button>
+                          </SheetTrigger>
+                          <SheetContent
+                            side="right"
+                            className="overflow-y-auto sm:max-w-md"
+                          >
+                            <SheetHeader>
+                              <SheetTitle>{workOrder.id}</SheetTitle>
+                              <SheetDescription>
+                                {workOrder.title}
+                              </SheetDescription>
+                            </SheetHeader>
+
+                            <Separator />
+
+                            <section className="grid gap-3 px-4">
+                              <h2 className="text-sm font-medium">
+                                Work Order Summary
+                              </h2>
+                              <dl className="grid gap-3 text-sm">
+                                <div className="flex items-center justify-between gap-4">
+                                  <dt className="text-muted-foreground">
+                                    Status
+                                  </dt>
+                                  <dd>
+                                    <Badge
+                                      variant={statusVariant[workOrder.status]}
+                                    >
+                                      {workOrder.status}
+                                    </Badge>
+                                  </dd>
+                                </div>
+                                <div className="flex items-center justify-between gap-4">
+                                  <dt className="text-muted-foreground">
+                                    Priority
+                                  </dt>
+                                  <dd>
+                                    <Badge
+                                      variant={
+                                        priorityVariant[workOrder.priority]
+                                      }
+                                    >
+                                      {workOrder.priority}
+                                    </Badge>
+                                  </dd>
+                                </div>
+                                <div className="flex justify-between gap-4">
+                                  <dt className="text-muted-foreground">
+                                    Customer
+                                  </dt>
+                                  <dd className="text-right">
+                                    {workOrder.customer}
+                                  </dd>
+                                </div>
+                                <div className="flex justify-between gap-4">
+                                  <dt className="text-muted-foreground">
+                                    Asset / Location
+                                  </dt>
+                                  <dd className="text-right">
+                                    {workOrder.assetLocation}
+                                  </dd>
+                                </div>
+                                <div className="flex justify-between gap-4">
+                                  <dt className="text-muted-foreground">
+                                    Assignee
+                                  </dt>
+                                  <dd className="text-right">
+                                    {workOrder.assignee}
+                                  </dd>
+                                </div>
+                                <div className="flex justify-between gap-4">
+                                  <dt className="text-muted-foreground">
+                                    Scheduled Time
+                                  </dt>
+                                  <dd className="text-right">
+                                    {workOrder.scheduledTime}
+                                  </dd>
+                                </div>
+                              </dl>
+                            </section>
+
+                            <Separator />
+
+                            <section className="grid gap-2 px-4">
+                              <h2 className="text-sm font-medium">
+                                Description
+                              </h2>
+                              <p className="text-sm text-muted-foreground">
+                                {workOrder.description}
+                              </p>
+                            </section>
+
+                            <Separator />
+
+                            <section className="grid gap-3 px-4">
+                              <h2 className="text-sm font-medium">
+                                Operational Timeline
+                              </h2>
+                              <ol className="grid gap-3 text-sm">
+                                <li className="grid gap-1">
+                                  <span className="font-medium">Created</span>
+                                  <span className="text-muted-foreground">
+                                    Work order created from the operational
+                                    queue.
+                                  </span>
+                                </li>
+                                <li className="grid gap-1">
+                                  <span className="font-medium">Assigned</span>
+                                  <span className="text-muted-foreground">
+                                    Routed to {workOrder.assignee} for
+                                    ownership.
+                                  </span>
+                                </li>
+                                <li className="grid gap-1">
+                                  <span className="font-medium">
+                                    Latest Update
+                                  </span>
+                                  <span className="text-muted-foreground">
+                                    Current status is {workOrder.status}.
+                                  </span>
+                                </li>
+                              </ol>
+                            </section>
+
+                            <Separator />
+
+                            <section className="grid gap-2 px-4 pb-4">
+                              <h2 className="text-sm font-medium">
+                                Recommended Next Action
+                              </h2>
+                              <p className="text-sm text-muted-foreground">
+                                {recommendedNextAction[workOrder.status]}
+                              </p>
+                            </section>
+
+                            <Separator />
+
+                            <section className="grid gap-3 px-4 pb-4">
+                              <h2 className="text-sm font-medium">
+                                Available Actions
+                              </h2>
+                              <div className="flex flex-col gap-2 sm:flex-row">
+                                {availableActions[workOrder.status].map(
+                                  (action, index) => (
+                                    <Button
+                                      key={action}
+                                      variant={
+                                        workOrder.status === "Completed" ||
+                                        index > 0
+                                          ? "outline"
+                                          : "default"
+                                      }
+                                    >
+                                      {action}
+                                    </Button>
+                                  )
+                                )}
+                              </div>
+                            </section>
+                          </SheetContent>
+                        </Sheet>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </Tabs>
+      </div>
+        </main>
+      </div>
     </div>
   );
 }
