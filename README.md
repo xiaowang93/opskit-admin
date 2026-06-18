@@ -8,6 +8,8 @@ It is not a real commercial admin product. It is intended for design presentatio
 
 - Admin Shell: Sidebar + Header
 - Work Orders List
+- Customers List
+- Assets List
 - Status Summary Cards
 - Search Bar
 - Filter Drawer
@@ -15,6 +17,20 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Work Order Detail Drawer
 - Create Work Order Drawer
 - Mock Data
+
+## Current Page Routes
+
+- `/`: Work Orders
+- `/customers`: Customers
+- `/assets`: Assets
+
+## Project Status
+
+The current Demo Kit includes 3 business modules:
+
+- Work Orders
+- Customers
+- Assets
 
 ## Tech Stack
 
@@ -33,6 +49,8 @@ It is not a real commercial admin product. It is intended for design presentatio
 - `src/components/work-order-detail-drawer.tsx`: Shows the selected work order details, timeline, recommendations, and available actions.
 - `src/components/create-work-order-drawer.tsx`: Provides the static create work order form drawer.
 - `src/data/work-orders.ts`: Stores Work Orders mock data and related TypeScript types.
+- `src/data/customers.ts`: Stores Customers mock data and related TypeScript types.
+- `src/data/assets.ts`: Stores Assets mock data and related TypeScript types.
 
 ## Development Principles
 
@@ -44,8 +62,7 @@ It is not a real commercial admin product. It is intended for design presentatio
 
 ## Next Steps
 
-- Customers module
-- Assets module
 - Billing module
 - Reports module
-- Extract shared patterns
+- Extract shared table patterns
+- Extract shared summary card patterns
