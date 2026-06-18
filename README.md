@@ -17,6 +17,9 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Filter Drawer
 - Work Orders Table
 - Work Order Detail Drawer
+- Customer Detail Drawer
+- Asset Detail Drawer
+- Billing Detail Drawer
 - Create Work Order Drawer
 - Shared PageHeader
 - Shared SummaryCardGrid
@@ -51,6 +54,13 @@ The current Demo Kit includes foundational shared list page patterns:
 - StatusBadge
 - DataTableCard
 
+The current Demo Kit now covers the common B2B SaaS admin list + detail drawer pattern across:
+
+- Work Orders
+- Customers
+- Assets
+- Billing
+
 ## Tech Stack
 
 - Next.js
@@ -70,6 +80,9 @@ The current Demo Kit includes foundational shared list page patterns:
 - `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
 - `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
 - `src/components/work-order-detail-drawer.tsx`: Shows the selected work order details, timeline, recommendations, and available actions.
+- `src/components/customer-detail-drawer.tsx`: Customer profile and activity detail drawer.
+- `src/components/asset-detail-drawer.tsx`: Asset summary and maintenance context drawer.
+- `src/components/billing-detail-drawer.tsx`: Invoice and payment context detail drawer.
 - `src/components/create-work-order-drawer.tsx`: Provides the static create work order form drawer.
 - `src/data/work-orders.ts`: Stores Work Orders mock data and related TypeScript types.
 - `src/data/customers.ts`: Stores Customers mock data and related TypeScript types.
@@ -87,7 +100,7 @@ The current Demo Kit includes foundational shared list page patterns:
 
 ## Next Steps
 
-- Add detail drawers for Customers / Assets / Billing
 - Add Settings module
 - Improve responsive layout
 - Polish visual consistency
+- Extract shared detail drawer patterns
