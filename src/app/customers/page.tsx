@@ -1,14 +1,9 @@
 import { AdminShell } from "@/components/admin-shell";
 import { PageHeader } from "@/components/page-header";
+import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -22,17 +17,17 @@ import { customers } from "@/data/customers";
 
 const summaryCards = [
   {
-    title: "Active Customers",
+    label: "Active Customers",
     value: customers.filter((customer) => customer.status === "Active").length,
     description: "Currently engaged accounts",
   },
   {
-    title: "At Risk",
+    label: "At Risk",
     value: customers.filter((customer) => customer.status === "At Risk").length,
     description: "Need operational attention",
   },
   {
-    title: "Open Work Orders",
+    label: "Open Work Orders",
     value: customers.reduce(
       (total, customer) => total + customer.openWorkOrders,
       0
@@ -57,21 +52,7 @@ export default function CustomersPage() {
           actions={<Button>Add Customer</Button>}
         />
 
-        <section className="grid gap-3 md:grid-cols-3">
-          {summaryCards.map((item) => (
-            <Card key={item.title} size="sm">
-              <CardHeader className="gap-2">
-                <div className="flex items-center justify-between gap-3">
-                  <CardTitle>{item.title}</CardTitle>
-                  <span className="text-2xl font-semibold tabular-nums">
-                    {item.value}
-                  </span>
-                </div>
-                <CardDescription>{item.description}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </section>
+        <SummaryCardGrid items={summaryCards} />
 
         <Card>
           <CardHeader>

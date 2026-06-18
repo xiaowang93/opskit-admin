@@ -1,5 +1,6 @@
 import { AdminShell } from "@/components/admin-shell";
 import { PageHeader } from "@/components/page-header";
+import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,22 +23,22 @@ import { reports } from "@/data/reports";
 
 const summaryCards = [
   {
-    title: "Ready Reports",
+    label: "Ready Reports",
     value: reports.filter((report) => report.status === "Ready").length,
     description: "Available for review",
   },
   {
-    title: "Generating",
+    label: "Generating",
     value: reports.filter((report) => report.status === "Generating").length,
     description: "Currently processing",
   },
   {
-    title: "Needs Review",
+    label: "Needs Review",
     value: reports.filter((report) => report.status === "Needs Review").length,
     description: "Awaiting approval",
   },
   {
-    title: "Failed",
+    label: "Failed",
     value: reports.filter((report) => report.status === "Failed").length,
     description: "Need rerun or support",
   },
@@ -60,21 +61,7 @@ export default function ReportsPage() {
           actions={<Button>Create Report</Button>}
         />
 
-        <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {summaryCards.map((item) => (
-            <Card key={item.title} size="sm">
-              <CardHeader className="gap-2">
-                <div className="flex items-center justify-between gap-3">
-                  <CardTitle>{item.title}</CardTitle>
-                  <span className="text-2xl font-semibold tabular-nums">
-                    {item.value}
-                  </span>
-                </div>
-                <CardDescription>{item.description}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </section>
+        <SummaryCardGrid items={summaryCards} />
 
         <Card>
           <CardHeader>

@@ -1,5 +1,6 @@
 import { AdminShell } from "@/components/admin-shell";
 import { PageHeader } from "@/components/page-header";
+import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,25 +28,25 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 
 const summaryCards = [
   {
-    title: "Total Revenue",
+    label: "Total Revenue",
     value: currencyFormatter.format(
       billingRecords.reduce((total, record) => total + record.amount, 0)
     ),
     description: "Across current invoices",
   },
   {
-    title: "Due Invoices",
+    label: "Due Invoices",
     value: billingRecords.filter((record) => record.status === "Due").length,
     description: "Awaiting payment",
   },
   {
-    title: "Overdue",
+    label: "Overdue",
     value: billingRecords.filter((record) => record.status === "Overdue")
       .length,
     description: "Past due date",
   },
   {
-    title: "Failed Payments",
+    label: "Failed Payments",
     value: billingRecords.filter((record) => record.status === "Failed").length,
     description: "Need payment recovery",
   },
@@ -68,21 +69,7 @@ export default function BillingPage() {
           actions={<Button>Create Invoice</Button>}
         />
 
-        <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {summaryCards.map((item) => (
-            <Card key={item.title} size="sm">
-              <CardHeader className="gap-2">
-                <div className="flex items-center justify-between gap-3">
-                  <CardTitle>{item.title}</CardTitle>
-                  <span className="text-2xl font-semibold tabular-nums">
-                    {item.value}
-                  </span>
-                </div>
-                <CardDescription>{item.description}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </section>
+        <SummaryCardGrid items={summaryCards} />
 
         <Card>
           <CardHeader>
