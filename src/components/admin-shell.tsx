@@ -6,7 +6,7 @@ const sidebarItems = [
   { label: "Work Orders", href: "/" },
   { label: "Customers", href: "/customers" },
   { label: "Assets", href: "/assets" },
-  { label: "Billing", href: "#" },
+  { label: "Billing", href: "/billing" },
   { label: "Reports", href: "#" },
   { label: "Settings", href: "#" },
 ];
