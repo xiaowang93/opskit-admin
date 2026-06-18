@@ -1,24 +1,9 @@
 import { AdminShell } from "@/components/admin-shell";
+import { DataTableCard } from "@/components/data-table-card";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { reports } from "@/data/reports";
 
 const summaryCards = [
@@ -56,51 +41,31 @@ export default function ReportsPage() {
 
         <SummaryCardGrid items={summaryCards} />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Report library</CardTitle>
-            <CardDescription>
-              A static overview of reporting outputs and generation status.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Input
-              aria-label="Search reports"
-              placeholder="Search by report name, category, or owner"
-            />
-
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Report Name</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Owner</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Last Generated</TableHead>
-                  <TableHead>Refresh Cadence</TableHead>
-                  <TableHead>Format</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {reports.map((report) => (
-                  <TableRow key={report.id}>
-                    <TableCell className="font-medium">{report.id}</TableCell>
-                    <TableCell>{report.name}</TableCell>
-                    <TableCell>{report.category}</TableCell>
-                    <TableCell>{report.owner}</TableCell>
-                    <TableCell>
-                      <StatusBadge status={report.status} />
-                    </TableCell>
-                    <TableCell>{report.lastGenerated}</TableCell>
-                    <TableCell>{report.refreshCadence}</TableCell>
-                    <TableCell>{report.format}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+        <DataTableCard
+          title="Report library"
+          description="A static overview of reporting outputs and generation status."
+          searchPlaceholder="Search by report name, category, or owner"
+          columns={[
+            "ID",
+            "Report Name",
+            "Category",
+            "Owner",
+            "Status",
+            "Last Generated",
+            "Refresh Cadence",
+            "Format",
+          ]}
+          rows={reports.map((report) => [
+            report.id,
+            report.name,
+            report.category,
+            report.owner,
+            <StatusBadge key={`${report.id}-status`} status={report.status} />,
+            report.lastGenerated,
+            report.refreshCadence,
+            report.format,
+          ])}
+        />
       </div>
     </AdminShell>
   );

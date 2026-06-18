@@ -1,24 +1,9 @@
 import { AdminShell } from "@/components/admin-shell";
+import { DataTableCard } from "@/components/data-table-card";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { billingRecords } from "@/data/billing";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -64,53 +49,34 @@ export default function BillingPage() {
 
         <SummaryCardGrid items={summaryCards} />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Invoice queue</CardTitle>
-            <CardDescription>
-              A static overview of invoices and payment readiness.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Input
-              aria-label="Search billing records"
-              placeholder="Search by invoice ID, customer, or plan"
-            />
-
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Invoice ID</TableHead>
-                  <TableHead>Customer</TableHead>
-                  <TableHead>Plan</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Due Date</TableHead>
-                  <TableHead>Payment Method</TableHead>
-                  <TableHead>Last Updated</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {billingRecords.map((record) => (
-                  <TableRow key={record.invoiceId}>
-                    <TableCell className="font-medium">
-                      {record.invoiceId}
-                    </TableCell>
-                    <TableCell>{record.customer}</TableCell>
-                    <TableCell>{record.plan}</TableCell>
-                    <TableCell>
-                      <StatusBadge status={record.status} />
-                    </TableCell>
-                    <TableCell>{currencyFormatter.format(record.amount)}</TableCell>
-                    <TableCell>{record.dueDate}</TableCell>
-                    <TableCell>{record.paymentMethod}</TableCell>
-                    <TableCell>{record.lastUpdated}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+        <DataTableCard
+          title="Invoice queue"
+          description="A static overview of invoices and payment readiness."
+          searchPlaceholder="Search by invoice ID, customer, or plan"
+          columns={[
+            "Invoice ID",
+            "Customer",
+            "Plan",
+            "Status",
+            "Amount",
+            "Due Date",
+            "Payment Method",
+            "Last Updated",
+          ]}
+          rows={billingRecords.map((record) => [
+            record.invoiceId,
+            record.customer,
+            record.plan,
+            <StatusBadge
+              key={`${record.invoiceId}-status`}
+              status={record.status}
+            />,
+            currencyFormatter.format(record.amount),
+            record.dueDate,
+            record.paymentMethod,
+            record.lastUpdated,
+          ])}
+        />
       </div>
     </AdminShell>
   );

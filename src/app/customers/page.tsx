@@ -1,18 +1,9 @@
 import { AdminShell } from "@/components/admin-shell";
+import { DataTableCard } from "@/components/data-table-card";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { customers } from "@/data/customers";
 
 const summaryCards = [
@@ -48,53 +39,34 @@ export default function CustomersPage() {
 
         <SummaryCardGrid items={summaryCards} />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Customer directory</CardTitle>
-            <CardDescription>
-              A static overview of customer profiles and operational context.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Input
-              aria-label="Search customers"
-              placeholder="Search by name, email, or customer ID"
-            />
-
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Open Work Orders</TableHead>
-                  <TableHead>Total Spend</TableHead>
-                  <TableHead>Last Activity</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {customers.map((customer) => (
-                  <TableRow key={customer.id}>
-                    <TableCell className="font-medium">
-                      {customer.id}
-                    </TableCell>
-                    <TableCell>{customer.name}</TableCell>
-                    <TableCell>{customer.type}</TableCell>
-                    <TableCell>{customer.email}</TableCell>
-                    <TableCell>
-                      <StatusBadge status={customer.status} />
-                    </TableCell>
-                    <TableCell>{customer.openWorkOrders}</TableCell>
-                    <TableCell>{customer.totalSpend}</TableCell>
-                    <TableCell>{customer.lastActivity}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+        <DataTableCard
+          title="Customer directory"
+          description="A static overview of customer profiles and operational context."
+          searchPlaceholder="Search by name, email, or customer ID"
+          columns={[
+            "ID",
+            "Name",
+            "Type",
+            "Email",
+            "Status",
+            "Open Work Orders",
+            "Total Spend",
+            "Last Activity",
+          ]}
+          rows={customers.map((customer) => [
+            customer.id,
+            customer.name,
+            customer.type,
+            customer.email,
+            <StatusBadge
+              key={`${customer.id}-status`}
+              status={customer.status}
+            />,
+            customer.openWorkOrders,
+            customer.totalSpend,
+            customer.lastActivity,
+          ])}
+        />
       </div>
     </AdminShell>
   );
