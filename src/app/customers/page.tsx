@@ -1,10 +1,15 @@
+"use client";
+
+import { useState } from "react";
+
 import { AdminShell } from "@/components/admin-shell";
+import { CustomerDetailDrawer } from "@/components/customer-detail-drawer";
 import { DataTableCard } from "@/components/data-table-card";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import { customers } from "@/data/customers";
+import { customers, type Customer } from "@/data/customers";
 
 const summaryCards = [
   {
@@ -28,6 +33,16 @@ const summaryCards = [
 ];
 
 export default function CustomersPage() {
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
+    null
+  );
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  function handleViewDetails(customer: Customer) {
+    setSelectedCustomer(customer);
+    setIsDetailOpen(true);
+  }
+
   return (
     <AdminShell activeItem="Customers">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
@@ -52,6 +67,7 @@ export default function CustomersPage() {
             "Open Work Orders",
             "Total Spend",
             "Last Activity",
+            "Actions",
           ]}
           rows={customers.map((customer) => [
             customer.id,
@@ -65,7 +81,21 @@ export default function CustomersPage() {
             customer.openWorkOrders,
             customer.totalSpend,
             customer.lastActivity,
+            <Button
+              key={`${customer.id}-action`}
+              variant="outline"
+              size="sm"
+              onClick={() => handleViewDetails(customer)}
+            >
+              View Details
+            </Button>,
           ])}
+        />
+
+        <CustomerDetailDrawer
+          customer={selectedCustomer}
+          open={isDetailOpen}
+          onOpenChange={setIsDetailOpen}
         />
       </div>
     </AdminShell>
