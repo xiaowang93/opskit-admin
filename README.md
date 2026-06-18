@@ -12,6 +12,7 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Assets List
 - Billing List
 - Reports List
+- Settings
 - Status Summary Cards
 - Search Bar
 - Filter Drawer
@@ -25,6 +26,10 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Shared SummaryCardGrid
 - Shared StatusBadge
 - Shared DataTableCard
+- Settings module
+- Workspace Profile card
+- Role & Permission Rules table
+- Notification & System Rules table
 - Mock Data
 
 ## Current Page Routes
@@ -34,16 +39,18 @@ It is not a real commercial admin product. It is intended for design presentatio
 - `/assets`: Assets
 - `/billing`: Billing
 - `/reports`: Reports
+- `/settings`: Workspace configuration, roles, notification rules, and system controls
 
 ## Project Status
 
-The current Demo Kit includes 5 business modules:
+The current Demo Kit covers 6 common B2B SaaS admin modules:
 
 - Work Orders
 - Customers
 - Assets
 - Billing
 - Reports
+- Settings
 
 The project has moved from page-by-page stacking into shared pattern extraction for reusable admin UI structures.
 
@@ -89,6 +96,7 @@ The current Demo Kit now covers the common B2B SaaS admin list + detail drawer p
 - `src/data/assets.ts`: Stores Assets mock data and related TypeScript types.
 - `src/data/billing.ts`: Stores Billing mock data and related TypeScript types.
 - `src/data/reports.ts`: Stores Reports mock data and related TypeScript types.
+- `src/data/settings.ts`: Stores Settings mock data and related TypeScript types.
 
 ## Development Principles
 
@@ -100,7 +108,7 @@ The current Demo Kit now covers the common B2B SaaS admin list + detail drawer p
 
 ## Next Steps
 
-- Add Settings module
 - Improve responsive layout
 - Polish visual consistency
 - Extract shared detail drawer patterns
+- Add screenshots to README later
