@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
+
 import { AdminShell } from "@/components/admin-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { WorkOrderSummaryCards } from "@/components/work-order-summary-cards";
+import { WorkOrdersTable } from "@/components/work-orders-table";
 import {
   Card,
   CardContent,
@@ -29,17 +34,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { workOrders } from "@/data/work-orders";
+import { workOrders, type WorkOrder } from "@/data/work-orders";
 
 const tabs = ["All", "Open", "Assigned", "In Progress", "Review", "Completed"];
 const statusOptions = [
@@ -104,6 +101,9 @@ const availableActions = {
 } as const;
 
 export default function Home() {
+  const [selectedWorkOrder, setSelectedWorkOrder] =
+    useState<WorkOrder | null>(null);
+
   return (
     <AdminShell>
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
@@ -339,212 +339,169 @@ export default function Home() {
                 </SheetContent>
               </Sheet>
 
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Customer</TableHead>
-                    <TableHead>Asset / Location</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Priority</TableHead>
-                    <TableHead>Assignee</TableHead>
-                    <TableHead>Scheduled Time</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {workOrders.map((workOrder) => (
-                    <TableRow key={workOrder.id}>
-                      <TableCell className="font-medium">
-                        {workOrder.id}
-                      </TableCell>
-                      <TableCell>{workOrder.title}</TableCell>
-                      <TableCell>{workOrder.customer}</TableCell>
-                      <TableCell>{workOrder.assetLocation}</TableCell>
-                      <TableCell>
-                        <Badge variant={statusVariant[workOrder.status]}>
-                          {workOrder.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant={priorityVariant[workOrder.priority]}>
-                          {workOrder.priority}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{workOrder.assignee}</TableCell>
-                      <TableCell>{workOrder.scheduledTime}</TableCell>
-                      <TableCell>
-                        <Sheet>
-                          <SheetTrigger asChild>
-                            <Button variant="outline" size="sm">
-                              View Details
-                            </Button>
-                          </SheetTrigger>
-                          <SheetContent
-                            side="right"
-                            className="overflow-y-auto sm:max-w-md"
-                          >
-                            <SheetHeader>
-                              <SheetTitle>{workOrder.id}</SheetTitle>
-                              <SheetDescription>
-                                {workOrder.title}
-                              </SheetDescription>
-                            </SheetHeader>
+              <WorkOrdersTable
+                workOrders={workOrders}
+                onViewDetails={setSelectedWorkOrder}
+              />
 
-                            <Separator />
+              <Sheet
+                open={selectedWorkOrder !== null}
+                onOpenChange={(open) => {
+                  if (!open) {
+                    setSelectedWorkOrder(null);
+                  }
+                }}
+              >
+                <SheetContent
+                  side="right"
+                  className="overflow-y-auto sm:max-w-md"
+                >
+                  {selectedWorkOrder ? (
+                    <>
+                      <SheetHeader>
+                        <SheetTitle>{selectedWorkOrder.id}</SheetTitle>
+                        <SheetDescription>
+                          {selectedWorkOrder.title}
+                        </SheetDescription>
+                      </SheetHeader>
 
-                            <section className="grid gap-3 px-4">
-                              <h2 className="text-sm font-medium">
-                                Work Order Summary
-                              </h2>
-                              <dl className="grid gap-3 text-sm">
-                                <div className="flex items-center justify-between gap-4">
-                                  <dt className="text-muted-foreground">
-                                    Status
-                                  </dt>
-                                  <dd>
-                                    <Badge
-                                      variant={statusVariant[workOrder.status]}
-                                    >
-                                      {workOrder.status}
-                                    </Badge>
-                                  </dd>
-                                </div>
-                                <div className="flex items-center justify-between gap-4">
-                                  <dt className="text-muted-foreground">
-                                    Priority
-                                  </dt>
-                                  <dd>
-                                    <Badge
-                                      variant={
-                                        priorityVariant[workOrder.priority]
-                                      }
-                                    >
-                                      {workOrder.priority}
-                                    </Badge>
-                                  </dd>
-                                </div>
-                                <div className="flex justify-between gap-4">
-                                  <dt className="text-muted-foreground">
-                                    Customer
-                                  </dt>
-                                  <dd className="text-right">
-                                    {workOrder.customer}
-                                  </dd>
-                                </div>
-                                <div className="flex justify-between gap-4">
-                                  <dt className="text-muted-foreground">
-                                    Asset / Location
-                                  </dt>
-                                  <dd className="text-right">
-                                    {workOrder.assetLocation}
-                                  </dd>
-                                </div>
-                                <div className="flex justify-between gap-4">
-                                  <dt className="text-muted-foreground">
-                                    Assignee
-                                  </dt>
-                                  <dd className="text-right">
-                                    {workOrder.assignee}
-                                  </dd>
-                                </div>
-                                <div className="flex justify-between gap-4">
-                                  <dt className="text-muted-foreground">
-                                    Scheduled Time
-                                  </dt>
-                                  <dd className="text-right">
-                                    {workOrder.scheduledTime}
-                                  </dd>
-                                </div>
-                              </dl>
-                            </section>
+                      <Separator />
 
-                            <Separator />
+                      <section className="grid gap-3 px-4">
+                        <h2 className="text-sm font-medium">
+                          Work Order Summary
+                        </h2>
+                        <dl className="grid gap-3 text-sm">
+                          <div className="flex items-center justify-between gap-4">
+                            <dt className="text-muted-foreground">Status</dt>
+                            <dd>
+                              <Badge
+                                variant={statusVariant[selectedWorkOrder.status]}
+                              >
+                                {selectedWorkOrder.status}
+                              </Badge>
+                            </dd>
+                          </div>
+                          <div className="flex items-center justify-between gap-4">
+                            <dt className="text-muted-foreground">Priority</dt>
+                            <dd>
+                              <Badge
+                                variant={
+                                  priorityVariant[selectedWorkOrder.priority]
+                                }
+                              >
+                                {selectedWorkOrder.priority}
+                              </Badge>
+                            </dd>
+                          </div>
+                          <div className="flex justify-between gap-4">
+                            <dt className="text-muted-foreground">Customer</dt>
+                            <dd className="text-right">
+                              {selectedWorkOrder.customer}
+                            </dd>
+                          </div>
+                          <div className="flex justify-between gap-4">
+                            <dt className="text-muted-foreground">
+                              Asset / Location
+                            </dt>
+                            <dd className="text-right">
+                              {selectedWorkOrder.assetLocation}
+                            </dd>
+                          </div>
+                          <div className="flex justify-between gap-4">
+                            <dt className="text-muted-foreground">Assignee</dt>
+                            <dd className="text-right">
+                              {selectedWorkOrder.assignee}
+                            </dd>
+                          </div>
+                          <div className="flex justify-between gap-4">
+                            <dt className="text-muted-foreground">
+                              Scheduled Time
+                            </dt>
+                            <dd className="text-right">
+                              {selectedWorkOrder.scheduledTime}
+                            </dd>
+                          </div>
+                        </dl>
+                      </section>
 
-                            <section className="grid gap-2 px-4">
-                              <h2 className="text-sm font-medium">
-                                Description
-                              </h2>
-                              <p className="text-sm text-muted-foreground">
-                                {workOrder.description}
-                              </p>
-                            </section>
+                      <Separator />
 
-                            <Separator />
+                      <section className="grid gap-2 px-4">
+                        <h2 className="text-sm font-medium">Description</h2>
+                        <p className="text-sm text-muted-foreground">
+                          {selectedWorkOrder.description}
+                        </p>
+                      </section>
 
-                            <section className="grid gap-3 px-4">
-                              <h2 className="text-sm font-medium">
-                                Operational Timeline
-                              </h2>
-                              <ol className="grid gap-3 text-sm">
-                                <li className="grid gap-1">
-                                  <span className="font-medium">Created</span>
-                                  <span className="text-muted-foreground">
-                                    Work order created from the operational
-                                    queue.
-                                  </span>
-                                </li>
-                                <li className="grid gap-1">
-                                  <span className="font-medium">Assigned</span>
-                                  <span className="text-muted-foreground">
-                                    Routed to {workOrder.assignee} for
-                                    ownership.
-                                  </span>
-                                </li>
-                                <li className="grid gap-1">
-                                  <span className="font-medium">
-                                    Latest Update
-                                  </span>
-                                  <span className="text-muted-foreground">
-                                    Current status is {workOrder.status}.
-                                  </span>
-                                </li>
-                              </ol>
-                            </section>
+                      <Separator />
 
-                            <Separator />
+                      <section className="grid gap-3 px-4">
+                        <h2 className="text-sm font-medium">
+                          Operational Timeline
+                        </h2>
+                        <ol className="grid gap-3 text-sm">
+                          <li className="grid gap-1">
+                            <span className="font-medium">Created</span>
+                            <span className="text-muted-foreground">
+                              Work order created from the operational queue.
+                            </span>
+                          </li>
+                          <li className="grid gap-1">
+                            <span className="font-medium">Assigned</span>
+                            <span className="text-muted-foreground">
+                              Routed to {selectedWorkOrder.assignee} for
+                              ownership.
+                            </span>
+                          </li>
+                          <li className="grid gap-1">
+                            <span className="font-medium">Latest Update</span>
+                            <span className="text-muted-foreground">
+                              Current status is {selectedWorkOrder.status}.
+                            </span>
+                          </li>
+                        </ol>
+                      </section>
 
-                            <section className="grid gap-2 px-4 pb-4">
-                              <h2 className="text-sm font-medium">
-                                Recommended Next Action
-                              </h2>
-                              <p className="text-sm text-muted-foreground">
-                                {recommendedNextAction[workOrder.status]}
-                              </p>
-                            </section>
+                      <Separator />
 
-                            <Separator />
+                      <section className="grid gap-2 px-4 pb-4">
+                        <h2 className="text-sm font-medium">
+                          Recommended Next Action
+                        </h2>
+                        <p className="text-sm text-muted-foreground">
+                          {recommendedNextAction[selectedWorkOrder.status]}
+                        </p>
+                      </section>
 
-                            <section className="grid gap-3 px-4 pb-4">
-                              <h2 className="text-sm font-medium">
-                                Available Actions
-                              </h2>
-                              <div className="flex flex-col gap-2 sm:flex-row">
-                                {availableActions[workOrder.status].map(
-                                  (action, index) => (
-                                    <Button
-                                      key={action}
-                                      variant={
-                                        workOrder.status === "Completed" ||
-                                        index > 0
-                                          ? "outline"
-                                          : "default"
-                                      }
-                                    >
-                                      {action}
-                                    </Button>
-                                  )
-                                )}
-                              </div>
-                            </section>
-                          </SheetContent>
-                        </Sheet>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                      <Separator />
+
+                      <section className="grid gap-3 px-4 pb-4">
+                        <h2 className="text-sm font-medium">
+                          Available Actions
+                        </h2>
+                        <div className="flex flex-col gap-2 sm:flex-row">
+                          {availableActions[selectedWorkOrder.status].map(
+                            (action, index) => (
+                              <Button
+                                key={action}
+                                variant={
+                                  selectedWorkOrder.status === "Completed" ||
+                                  index > 0
+                                    ? "outline"
+                                    : "default"
+                                }
+                              >
+                                {action}
+                              </Button>
+                            )
+                          )}
+                        </div>
+                      </section>
+                    </>
+                  ) : null}
+                </SheetContent>
+              </Sheet>
             </CardContent>
           </Card>
         </Tabs>
