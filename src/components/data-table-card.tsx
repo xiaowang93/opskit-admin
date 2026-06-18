@@ -45,29 +45,31 @@ export function DataTableCard({
       <CardContent className="space-y-4">
         <Input aria-label={searchPlaceholder} placeholder={searchPlaceholder} />
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {columns.map((column) => (
-                <TableHead key={column}>{column}</TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rows.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
-                {row.map((cell, cellIndex) => (
-                  <TableCell
-                    key={cellIndex}
-                    className={cellIndex === 0 ? "font-medium" : undefined}
-                  >
-                    {cell}
-                  </TableCell>
+        <div className="overflow-x-auto">
+          <Table className="min-w-[760px]">
+            <TableHeader>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableHead key={column}>{column}</TableHead>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {rows.map((row, rowIndex) => (
+                <TableRow key={rowIndex}>
+                  {row.map((cell, cellIndex) => (
+                    <TableCell
+                      key={cellIndex}
+                      className={cellIndex === 0 ? "font-medium" : undefined}
+                    >
+                      {cell}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );
