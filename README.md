@@ -26,10 +26,12 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Shared SummaryCardGrid
 - Shared StatusBadge
 - Shared DataTableCard
+- Shared EmptyState component
 - Responsive DataTableCard
 - Responsive AdminShell
 - Mobile-friendly horizontal table scrolling
 - Mobile navigation with Sheet menu
+- Empty state example in Reports module
 - Settings module
 - Workspace Profile card
 - Role & Permission Rules table
@@ -42,7 +44,7 @@ It is not a real commercial admin product. It is intended for design presentatio
 - `/customers`: Customers
 - `/assets`: Assets
 - `/billing`: Billing
-- `/reports`: Reports
+- `/reports`: Reports, including a Custom Report Templates empty state example
 - `/settings`: Workspace configuration, roles, notification rules, and system controls
 
 ## Project Status
@@ -82,6 +84,13 @@ DataTableCard supports a foundational responsive table experience:
 - Desktop keeps the existing table layout.
 - Mobile supports horizontal scrolling for wide tables.
 
+The current Demo Kit has started covering common B2B SaaS admin state design:
+
+- List states
+- Detail drawers
+- Empty states
+- Responsive navigation and tables
+
 ## Tech Stack
 
 - Next.js
@@ -97,6 +106,7 @@ DataTableCard supports a foundational responsive table experience:
 - `src/components/summary-card-grid.tsx`: Shared summary card layout for module overview metrics.
 - `src/components/status-badge.tsx`: Shared status badge for consistent status display across modules.
 - `src/components/data-table-card.tsx`: Shared search + table card pattern with responsive horizontal scrolling.
+- `src/components/empty-state.tsx`: Shared empty state component for blank or unavailable data scenarios.
 - `src/components/work-order-summary-cards.tsx`: Shows the Work Orders status summary cards.
 - `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
 - `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
@@ -125,4 +135,4 @@ DataTableCard supports a foundational responsive table experience:
 - Polish visual consistency
 - Extract shared detail drawer patterns
 - Add screenshots to README later
-- Improve empty states and loading states later
+- Improve loading states later
