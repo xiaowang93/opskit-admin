@@ -1,3 +1,4 @@
+import { StatusBadge } from "@/components/status-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,14 +10,6 @@ import {
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import type { WorkOrder } from "@/data/work-orders";
-
-const statusVariant = {
-  Open: "outline",
-  Assigned: "secondary",
-  "In Progress": "default",
-  Review: "secondary",
-  Completed: "outline",
-} as const;
 
 const priorityVariant = {
   Low: "outline",
@@ -70,9 +63,7 @@ export function WorkOrderDetailDrawer({
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted-foreground">Status</dt>
                   <dd>
-                    <Badge variant={statusVariant[workOrder.status]}>
-                      {workOrder.status}
-                    </Badge>
+                    <StatusBadge status={workOrder.status} />
                   </dd>
                 </div>
                 <div className="flex items-center justify-between gap-4">

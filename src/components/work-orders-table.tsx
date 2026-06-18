@@ -1,5 +1,6 @@
 "use client";
 
+import { StatusBadge } from "@/components/status-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,14 +12,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { WorkOrder } from "@/data/work-orders";
-
-const statusVariant = {
-  Open: "outline",
-  Assigned: "secondary",
-  "In Progress": "default",
-  Review: "secondary",
-  Completed: "outline",
-} as const;
 
 const priorityVariant = {
   Low: "outline",
@@ -59,9 +52,7 @@ export function WorkOrdersTable({
             <TableCell>{workOrder.customer}</TableCell>
             <TableCell>{workOrder.assetLocation}</TableCell>
             <TableCell>
-              <Badge variant={statusVariant[workOrder.status]}>
-                {workOrder.status}
-              </Badge>
+              <StatusBadge status={workOrder.status} />
             </TableCell>
             <TableCell>
               <Badge variant={priorityVariant[workOrder.priority]}>

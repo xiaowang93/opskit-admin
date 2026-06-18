@@ -1,7 +1,7 @@
 import { AdminShell } from "@/components/admin-shell";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -52,13 +52,6 @@ const summaryCards = [
   },
 ];
 
-const statusVariant = {
-  Paid: "default",
-  Due: "secondary",
-  Overdue: "destructive",
-  Failed: "outline",
-} as const;
-
 export default function BillingPage() {
   return (
     <AdminShell activeItem="Billing">
@@ -106,9 +99,7 @@ export default function BillingPage() {
                     <TableCell>{record.customer}</TableCell>
                     <TableCell>{record.plan}</TableCell>
                     <TableCell>
-                      <Badge variant={statusVariant[record.status]}>
-                        {record.status}
-                      </Badge>
+                      <StatusBadge status={record.status} />
                     </TableCell>
                     <TableCell>{currencyFormatter.format(record.amount)}</TableCell>
                     <TableCell>{record.dueDate}</TableCell>

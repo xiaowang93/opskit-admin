@@ -1,7 +1,7 @@
 import { AdminShell } from "@/components/admin-shell";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -43,13 +43,6 @@ const summaryCards = [
     description: "Need rerun or support",
   },
 ];
-
-const statusVariant = {
-  Ready: "default",
-  Generating: "secondary",
-  "Needs Review": "outline",
-  Failed: "destructive",
-} as const;
 
 export default function ReportsPage() {
   return (
@@ -97,9 +90,7 @@ export default function ReportsPage() {
                     <TableCell>{report.category}</TableCell>
                     <TableCell>{report.owner}</TableCell>
                     <TableCell>
-                      <Badge variant={statusVariant[report.status]}>
-                        {report.status}
-                      </Badge>
+                      <StatusBadge status={report.status} />
                     </TableCell>
                     <TableCell>{report.lastGenerated}</TableCell>
                     <TableCell>{report.refreshCadence}</TableCell>

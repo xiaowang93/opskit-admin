@@ -1,7 +1,7 @@
 import { AdminShell } from "@/components/admin-shell";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -38,12 +38,6 @@ const summaryCards = [
     description: "Unavailable for operations",
   },
 ];
-
-const statusVariant = {
-  Active: "default",
-  "Maintenance Due": "secondary",
-  Offline: "outline",
-} as const;
 
 export default function AssetsPage() {
   return (
@@ -91,9 +85,7 @@ export default function AssetsPage() {
                     <TableCell>{asset.category}</TableCell>
                     <TableCell>{asset.owner}</TableCell>
                     <TableCell>
-                      <Badge variant={statusVariant[asset.status]}>
-                        {asset.status}
-                      </Badge>
+                      <StatusBadge status={asset.status} />
                     </TableCell>
                     <TableCell>{asset.location}</TableCell>
                     <TableCell>{asset.openWorkOrders}</TableCell>

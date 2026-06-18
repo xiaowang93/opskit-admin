@@ -1,7 +1,7 @@
 import { AdminShell } from "@/components/admin-shell";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -35,12 +35,6 @@ const summaryCards = [
     description: "Across all customers",
   },
 ];
-
-const statusVariant = {
-  Active: "default",
-  "At Risk": "secondary",
-  Inactive: "outline",
-} as const;
 
 export default function CustomersPage() {
   return (
@@ -90,9 +84,7 @@ export default function CustomersPage() {
                     <TableCell>{customer.type}</TableCell>
                     <TableCell>{customer.email}</TableCell>
                     <TableCell>
-                      <Badge variant={statusVariant[customer.status]}>
-                        {customer.status}
-                      </Badge>
+                      <StatusBadge status={customer.status} />
                     </TableCell>
                     <TableCell>{customer.openWorkOrders}</TableCell>
                     <TableCell>{customer.totalSpend}</TableCell>
