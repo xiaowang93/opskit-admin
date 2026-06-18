@@ -1,5 +1,6 @@
 import { AdminShell } from "@/components/admin-shell";
 import { DataTableCard } from "@/components/data-table-card";
+import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { StatusBadge } from "@/components/status-badge";
@@ -66,6 +67,15 @@ export default function ReportsPage() {
             report.format,
           ])}
         />
+
+        <section className="grid gap-3">
+          <h2 className="text-base font-medium">Custom Report Templates</h2>
+          <EmptyState
+            title="No custom templates yet"
+            description="Create reusable report templates to speed up recurring operational reviews."
+            actionLabel="Create Template"
+          />
+        </section>
       </div>
     </AdminShell>
   );
