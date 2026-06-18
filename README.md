@@ -26,7 +26,9 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Shared SummaryCardGrid
 - Shared StatusBadge
 - Shared DataTableCard
+- Responsive DataTableCard
 - Responsive AdminShell
+- Mobile-friendly horizontal table scrolling
 - Mobile navigation with Sheet menu
 - Settings module
 - Workspace Profile card
@@ -75,6 +77,11 @@ AdminShell supports a foundational responsive layout:
 - Desktop keeps a persistent sidebar.
 - Mobile uses a top header with menu-triggered Sheet navigation.
 
+DataTableCard supports a foundational responsive table experience:
+
+- Desktop keeps the existing table layout.
+- Mobile supports horizontal scrolling for wide tables.
+
 ## Tech Stack
 
 - Next.js
@@ -89,7 +96,7 @@ AdminShell supports a foundational responsive layout:
 - `src/components/page-header.tsx`: Shared page title, description, and action area.
 - `src/components/summary-card-grid.tsx`: Shared summary card layout for module overview metrics.
 - `src/components/status-badge.tsx`: Shared status badge for consistent status display across modules.
-- `src/components/data-table-card.tsx`: Shared search + table card pattern for list pages.
+- `src/components/data-table-card.tsx`: Shared search + table card pattern with responsive horizontal scrolling.
 - `src/components/work-order-summary-cards.tsx`: Shows the Work Orders status summary cards.
 - `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
 - `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
