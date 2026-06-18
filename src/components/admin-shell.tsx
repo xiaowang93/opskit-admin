@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 const sidebarItems = [
-  "Dashboard",
-  "Work Orders",
-  "Customers",
-  "Assets",
-  "Billing",
-  "Reports",
-  "Settings",
+  { label: "Dashboard", href: "/" },
+  { label: "Work Orders", href: "/" },
+  { label: "Customers", href: "/customers" },
+  { label: "Assets", href: "#" },
+  { label: "Billing", href: "#" },
+  { label: "Reports", href: "#" },
+  { label: "Settings", href: "#" },
 ];
 
 type AdminShellProps = {
@@ -25,17 +26,17 @@ export function AdminShell({ activeItem, children }: AdminShellProps) {
         </div>
         <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
           {sidebarItems.map((item) => (
-            <button
-              key={item}
+            <Link
+              key={item.label}
               className={
-                item === activeItem
+                item.label === activeItem
                   ? "rounded-lg bg-muted px-3 py-2 text-left text-sm font-medium text-foreground"
                   : "rounded-lg px-3 py-2 text-left text-sm text-muted-foreground hover:bg-muted/70 hover:text-foreground"
               }
-              type="button"
+              href={item.href}
             >
-              {item}
-            </button>
+              {item.label}
+            </Link>
           ))}
         </nav>
       </aside>
