@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { AdminShell } from "@/components/admin-shell";
 import { CreateWorkOrderDrawer } from "@/components/create-work-order-drawer";
+import { PageHeader } from "@/components/page-header";
 import { WorkOrderSummaryCards } from "@/components/work-order-summary-cards";
 import { WorkOrderDetailDrawer } from "@/components/work-order-detail-drawer";
 import { WorkOrderFilterDrawer } from "@/components/work-order-filter-drawer";
@@ -28,17 +29,11 @@ export default function Home() {
   return (
     <AdminShell activeItem="Work Orders">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-semibold tracking-tight">
-              Work Orders
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Track, assign, and review operational work orders.
-            </p>
-          </div>
-          <CreateWorkOrderDrawer />
-        </header>
+        <PageHeader
+          title="Work Orders"
+          description="Track, assign, and review operational work orders."
+          actions={<CreateWorkOrderDrawer />}
+        />
 
         <WorkOrderSummaryCards />
 

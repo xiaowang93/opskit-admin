@@ -1,4 +1,5 @@
 import { AdminShell } from "@/components/admin-shell";
+import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,15 +48,11 @@ export default function AssetsPage() {
   return (
     <AdminShell activeItem="Assets">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-semibold tracking-tight">Assets</h1>
-            <p className="text-sm text-muted-foreground">
-              Track operational assets, ownership, and maintenance readiness.
-            </p>
-          </div>
-          <Button>Add Asset</Button>
-        </header>
+        <PageHeader
+          title="Assets"
+          description="Track operational assets, ownership, and maintenance readiness."
+          actions={<Button>Add Asset</Button>}
+        />
 
         <section className="grid gap-3 md:grid-cols-3">
           {summaryCards.map((item) => (

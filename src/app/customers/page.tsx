@@ -1,4 +1,5 @@
 import { AdminShell } from "@/components/admin-shell";
+import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,17 +51,11 @@ export default function CustomersPage() {
   return (
     <AdminShell activeItem="Customers">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-semibold tracking-tight">
-              Customers
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Manage customer profiles, activity, and operational context.
-            </p>
-          </div>
-          <Button>Add Customer</Button>
-        </header>
+        <PageHeader
+          title="Customers"
+          description="Manage customer profiles, activity, and operational context."
+          actions={<Button>Add Customer</Button>}
+        />
 
         <section className="grid gap-3 md:grid-cols-3">
           {summaryCards.map((item) => (

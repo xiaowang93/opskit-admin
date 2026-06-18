@@ -1,4 +1,5 @@
 import { AdminShell } from "@/components/admin-shell";
+import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,16 +54,11 @@ export default function ReportsPage() {
   return (
     <AdminShell activeItem="Reports">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-semibold tracking-tight">Reports</h1>
-            <p className="text-sm text-muted-foreground">
-              Review operational, customer, asset, and billing reporting
-              outputs.
-            </p>
-          </div>
-          <Button>Create Report</Button>
-        </header>
+        <PageHeader
+          title="Reports"
+          description="Review operational, customer, asset, and billing reporting outputs."
+          actions={<Button>Create Report</Button>}
+        />
 
         <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {summaryCards.map((item) => (
