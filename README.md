@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpsKit Admin
 
-## Getting Started
+OpsKit Admin is a B2B SaaS Admin Demo Kit for capturing common page patterns and interaction patterns found in complex back-office systems.
 
-First, run the development server:
+It is not a real commercial admin product. It is intended for design presentation, componentization practice, and validating AI-assisted development workflows.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Completed Modules
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Admin Shell: Sidebar + Header
+- Work Orders List
+- Status Summary Cards
+- Search Bar
+- Filter Drawer
+- Work Orders Table
+- Work Order Detail Drawer
+- Create Work Order Drawer
+- Mock Data
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Next.js
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Codex
 
-## Learn More
+## Component Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `src/components/admin-shell.tsx`: Provides the shared admin layout with sidebar navigation and top header.
+- `src/components/work-order-summary-cards.tsx`: Shows the Work Orders status summary cards.
+- `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
+- `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
+- `src/components/work-order-detail-drawer.tsx`: Shows the selected work order details, timeline, recommendations, and available actions.
+- `src/components/create-work-order-drawer.tsx`: Provides the static create work order form drawer.
+- `src/data/work-orders.ts`: Stores Work Orders mock data and related TypeScript types.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development Principles
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Make one small change at a time.
+- Run `npm run build` after each change.
+- Commit only after the build succeeds.
+- Make the page work first, then extract components.
+- Start with mock data before connecting a backend.
 
-## Deploy on Vercel
+## Next Steps
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Customers module
+- Assets module
+- Billing module
+- Reports module
+- Extract shared patterns
