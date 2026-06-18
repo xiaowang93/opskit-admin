@@ -10,6 +10,7 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Work Orders List
 - Customers List
 - Assets List
+- Billing List
 - Status Summary Cards
 - Search Bar
 - Filter Drawer
@@ -23,14 +24,16 @@ It is not a real commercial admin product. It is intended for design presentatio
 - `/`: Work Orders
 - `/customers`: Customers
 - `/assets`: Assets
+- `/billing`: Billing
 
 ## Project Status
 
-The current Demo Kit includes 3 business modules:
+The current Demo Kit includes 4 business modules:
 
 - Work Orders
 - Customers
 - Assets
+- Billing
 
 ## Tech Stack
 
@@ -51,6 +54,7 @@ The current Demo Kit includes 3 business modules:
 - `src/data/work-orders.ts`: Stores Work Orders mock data and related TypeScript types.
 - `src/data/customers.ts`: Stores Customers mock data and related TypeScript types.
 - `src/data/assets.ts`: Stores Assets mock data and related TypeScript types.
+- `src/data/billing.ts`: Stores Billing mock data and related TypeScript types.
 
 ## Development Principles
 
@@ -62,7 +66,7 @@ The current Demo Kit includes 3 business modules:
 
 ## Next Steps
 
-- Billing module
 - Reports module
 - Extract shared table patterns
 - Extract shared summary card patterns
+- Add detail drawers for Customers / Assets / Billing
