@@ -8,7 +8,7 @@ const sidebarItems = [
   { label: "Assets", href: "/assets" },
   { label: "Billing", href: "/billing" },
   { label: "Reports", href: "/reports" },
-  { label: "Settings", href: "#" },
+  { label: "Settings", href: "/settings" },
 ];
 
 type AdminShellProps = {
