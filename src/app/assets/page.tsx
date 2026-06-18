@@ -1,10 +1,15 @@
+"use client";
+
+import { useState } from "react";
+
 import { AdminShell } from "@/components/admin-shell";
+import { AssetDetailDrawer } from "@/components/asset-detail-drawer";
 import { DataTableCard } from "@/components/data-table-card";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import { assets } from "@/data/assets";
+import { assets, type Asset } from "@/data/assets";
 
 const summaryCards = [
   {
@@ -25,6 +30,14 @@ const summaryCards = [
 ];
 
 export default function AssetsPage() {
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  function handleViewDetails(asset: Asset) {
+    setSelectedAsset(asset);
+    setIsDetailOpen(true);
+  }
+
   return (
     <AdminShell activeItem="Assets">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
@@ -49,6 +62,7 @@ export default function AssetsPage() {
             "Location",
             "Open Work Orders",
             "Last Inspected",
+            "Actions",
           ]}
           rows={assets.map((asset) => [
             asset.id,
@@ -59,7 +73,21 @@ export default function AssetsPage() {
             asset.location,
             asset.openWorkOrders,
             asset.lastInspected,
+            <Button
+              key={`${asset.id}-action`}
+              variant="outline"
+              size="sm"
+              onClick={() => handleViewDetails(asset)}
+            >
+              View Details
+            </Button>,
           ])}
+        />
+
+        <AssetDetailDrawer
+          asset={selectedAsset}
+          open={isDetailOpen}
+          onOpenChange={setIsDetailOpen}
         />
       </div>
     </AdminShell>
