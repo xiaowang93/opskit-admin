@@ -18,6 +18,9 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Work Orders Table
 - Work Order Detail Drawer
 - Create Work Order Drawer
+- Shared PageHeader
+- Shared SummaryCardGrid
+- Shared StatusBadge
 - Mock Data
 
 ## Current Page Routes
@@ -38,6 +41,8 @@ The current Demo Kit includes 5 business modules:
 - Billing
 - Reports
 
+The project has moved from page-by-page stacking into shared pattern extraction for reusable admin UI structures.
+
 ## Tech Stack
 
 - Next.js
@@ -49,6 +54,9 @@ The current Demo Kit includes 5 business modules:
 ## Component Structure
 
 - `src/components/admin-shell.tsx`: Provides the shared admin layout with sidebar navigation and top header.
+- `src/components/page-header.tsx`: Shared page title, description, and action area.
+- `src/components/summary-card-grid.tsx`: Shared summary card layout for module overview metrics.
+- `src/components/status-badge.tsx`: Shared status badge for consistent status display across modules.
 - `src/components/work-order-summary-cards.tsx`: Shows the Work Orders status summary cards.
 - `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
 - `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
@@ -71,6 +79,6 @@ The current Demo Kit includes 5 business modules:
 ## Next Steps
 
 - Extract shared table patterns
-- Extract shared summary card patterns
 - Add detail drawers for Customers / Assets / Billing
 - Add Settings module
+- Improve responsive layout
