@@ -10,7 +10,12 @@ const sidebarItems = [
   "Settings",
 ];
 
-export function AdminShell({ children }: { children: ReactNode }) {
+type AdminShellProps = {
+  activeItem: string;
+  children: ReactNode;
+};
+
+export function AdminShell({ activeItem, children }: AdminShellProps) {
   return (
     <div className="min-h-screen bg-muted/30">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r bg-background md:flex">
@@ -23,7 +28,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
             <button
               key={item}
               className={
-                item === "Work Orders"
+                item === activeItem
                   ? "rounded-lg bg-muted px-3 py-2 text-left text-sm font-medium text-foreground"
                   : "rounded-lg px-3 py-2 text-left text-sm text-muted-foreground hover:bg-muted/70 hover:text-foreground"
               }
