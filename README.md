@@ -26,6 +26,8 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Shared SummaryCardGrid
 - Shared StatusBadge
 - Shared DataTableCard
+- Responsive AdminShell
+- Mobile navigation with Sheet menu
 - Settings module
 - Workspace Profile card
 - Role & Permission Rules table
@@ -68,6 +70,11 @@ The current Demo Kit now covers the common B2B SaaS admin list + detail drawer p
 - Assets
 - Billing
 
+AdminShell supports a foundational responsive layout:
+
+- Desktop keeps a persistent sidebar.
+- Mobile uses a top header with menu-triggered Sheet navigation.
+
 ## Tech Stack
 
 - Next.js
@@ -78,7 +85,7 @@ The current Demo Kit now covers the common B2B SaaS admin list + detail drawer p
 
 ## Component Structure
 
-- `src/components/admin-shell.tsx`: Provides the shared admin layout with sidebar navigation and top header.
+- `src/components/admin-shell.tsx`: Shared application shell with desktop sidebar and mobile Sheet navigation.
 - `src/components/page-header.tsx`: Shared page title, description, and action area.
 - `src/components/summary-card-grid.tsx`: Shared summary card layout for module overview metrics.
 - `src/components/status-badge.tsx`: Shared status badge for consistent status display across modules.
@@ -108,7 +115,7 @@ The current Demo Kit now covers the common B2B SaaS admin list + detail drawer p
 
 ## Next Steps
 
-- Improve responsive layout
 - Polish visual consistency
 - Extract shared detail drawer patterns
 - Add screenshots to README later
+- Improve empty states and loading states later
