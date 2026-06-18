@@ -6,6 +6,7 @@ import { AdminShell } from "@/components/admin-shell";
 import { Button } from "@/components/ui/button";
 import { WorkOrderSummaryCards } from "@/components/work-order-summary-cards";
 import { WorkOrderDetailDrawer } from "@/components/work-order-detail-drawer";
+import { WorkOrderFilterDrawer } from "@/components/work-order-filter-drawer";
 import { WorkOrdersTable } from "@/components/work-orders-table";
 import {
   Card,
@@ -39,25 +40,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { workOrders, type WorkOrder } from "@/data/work-orders";
 
 const tabs = ["All", "Open", "Assigned", "In Progress", "Review", "Completed"];
-const statusOptions = [
-  "All",
-  "Open",
-  "Assigned",
-  "In Progress",
-  "Review",
-  "Completed",
-];
-const priorityOptions = ["All", "Critical", "High", "Medium", "Low"];
-const assigneeOptions = [
-  "All",
-  "Maya Chen",
-  "Owen Brooks",
-  "Priya Shah",
-  "Leo Martins",
-  "Nina Patel",
-  "Ethan Walker",
-];
-const scheduledTimeOptions = ["Any time", "Today", "This week", "This month"];
 const createPriorityOptions = ["Critical", "High", "Medium", "Low"];
 const createAssigneeOptions = [
   "Unassigned",
@@ -205,108 +187,14 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Sheet>
-                <div className="flex flex-col gap-2 sm:flex-row">
-                  <Input
-                    aria-label="Search work orders"
-                    className="sm:flex-1"
-                    placeholder="Search by ID, title, customer, or assignee"
-                  />
-                  <SheetTrigger asChild>
-                    <Button variant="outline">Filter</Button>
-                  </SheetTrigger>
-                </div>
-
-                <SheetContent side="right">
-                  <SheetHeader>
-                    <SheetTitle>Filter Work Orders</SheetTitle>
-                    <SheetDescription>
-                      Refine the work order queue by operational attributes.
-                    </SheetDescription>
-                  </SheetHeader>
-
-                  <Separator />
-
-                  <div className="grid gap-4 px-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="status-filter">Status</Label>
-                      <Select defaultValue="All">
-                        <SelectTrigger id="status-filter" className="w-full">
-                          <SelectValue placeholder="Select status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {statusOptions.map((status) => (
-                            <SelectItem key={status} value={status}>
-                              {status}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="grid gap-2">
-                      <Label htmlFor="priority-filter">Priority</Label>
-                      <Select defaultValue="All">
-                        <SelectTrigger id="priority-filter" className="w-full">
-                          <SelectValue placeholder="Select priority" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {priorityOptions.map((priority) => (
-                            <SelectItem key={priority} value={priority}>
-                              {priority}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="grid gap-2">
-                      <Label htmlFor="assignee-filter">Assignee</Label>
-                      <Select defaultValue="All">
-                        <SelectTrigger id="assignee-filter" className="w-full">
-                          <SelectValue placeholder="Select assignee" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {assigneeOptions.map((assignee) => (
-                            <SelectItem key={assignee} value={assignee}>
-                              {assignee}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="grid gap-2">
-                      <Label htmlFor="scheduled-time-filter">
-                        Scheduled Time
-                      </Label>
-                      <Select defaultValue="Any time">
-                        <SelectTrigger
-                          id="scheduled-time-filter"
-                          className="w-full"
-                        >
-                          <SelectValue placeholder="Select scheduled time" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {scheduledTimeOptions.map((scheduledTime) => (
-                            <SelectItem
-                              key={scheduledTime}
-                              value={scheduledTime}
-                            >
-                              {scheduledTime}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <SheetFooter>
-                    <Button variant="outline">Reset</Button>
-                    <Button>Apply Filters</Button>
-                  </SheetFooter>
-                </SheetContent>
-              </Sheet>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Input
+                  aria-label="Search work orders"
+                  className="sm:flex-1"
+                  placeholder="Search by ID, title, customer, or assignee"
+                />
+                <WorkOrderFilterDrawer />
+              </div>
 
               <WorkOrdersTable
                 workOrders={workOrders}
