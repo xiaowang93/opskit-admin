@@ -1,10 +1,15 @@
+"use client";
+
+import { useState } from "react";
+
 import { AdminShell } from "@/components/admin-shell";
+import { BillingDetailDrawer } from "@/components/billing-detail-drawer";
 import { DataTableCard } from "@/components/data-table-card";
 import { PageHeader } from "@/components/page-header";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import { billingRecords } from "@/data/billing";
+import { billingRecords, type BillingRecord } from "@/data/billing";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -38,6 +43,15 @@ const summaryCards = [
 ];
 
 export default function BillingPage() {
+  const [selectedBillingRecord, setSelectedBillingRecord] =
+    useState<BillingRecord | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  function handleViewDetails(billingRecord: BillingRecord) {
+    setSelectedBillingRecord(billingRecord);
+    setIsDetailOpen(true);
+  }
+
   return (
     <AdminShell activeItem="Billing">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
@@ -62,6 +76,7 @@ export default function BillingPage() {
             "Due Date",
             "Payment Method",
             "Last Updated",
+            "Actions",
           ]}
           rows={billingRecords.map((record) => [
             record.invoiceId,
@@ -75,7 +90,21 @@ export default function BillingPage() {
             record.dueDate,
             record.paymentMethod,
             record.lastUpdated,
+            <Button
+              key={`${record.invoiceId}-action`}
+              variant="outline"
+              size="sm"
+              onClick={() => handleViewDetails(record)}
+            >
+              View Details
+            </Button>,
           ])}
+        />
+
+        <BillingDetailDrawer
+          billingRecord={selectedBillingRecord}
+          open={isDetailOpen}
+          onOpenChange={setIsDetailOpen}
         />
       </div>
     </AdminShell>
