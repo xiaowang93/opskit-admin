@@ -4,6 +4,10 @@ OpsKit Admin is a B2B SaaS Admin Demo Kit for capturing common page patterns and
 
 It is not a real commercial admin product. It is intended for design presentation, componentization practice, and validating AI-assisted development workflows.
 
+## Online Demo
+
+[https://opskit-admin.vercel.app/](https://opskit-admin.vercel.app/)
+
 ## Completed Modules
 
 - Admin Shell: Sidebar + Header
