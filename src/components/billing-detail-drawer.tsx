@@ -1,3 +1,4 @@
+import { DetailSection } from "@/components/detail-section";
 import { StatusBadge } from "@/components/status-badge";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -49,8 +50,7 @@ export function BillingDetailDrawer({
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Invoice Summary</h2>
+            <DetailSection title="Invoice Summary">
               <dl className="grid gap-3 text-sm">
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted-foreground">Status</dt>
@@ -87,23 +87,21 @@ export function BillingDetailDrawer({
                   <dd className="text-right">{billingRecord.lastUpdated}</dd>
                 </div>
               </dl>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4">
-              <h2 className="text-sm font-medium">Payment Context</h2>
+            <DetailSection title="Payment Context">
               <p className="text-sm text-muted-foreground">
                 This invoice summary captures the current payment state,
                 customer billing context, and finance follow-up signals for the
                 revenue operations team.
               </p>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Payment Activity</h2>
+            <DetailSection title="Payment Activity">
               <ol className="grid gap-3 text-sm">
                 <li className="grid gap-1">
                   <span className="font-medium">Invoice created</span>
@@ -126,16 +124,15 @@ export function BillingDetailDrawer({
                   </span>
                 </li>
               </ol>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4 pb-4">
-              <h2 className="text-sm font-medium">Recommended Next Action</h2>
+            <DetailSection title="Recommended Next Action">
               <p className="text-sm text-muted-foreground">
                 {recommendedNextAction[billingRecord.status]}
               </p>
-            </section>
+            </DetailSection>
           </>
         ) : null}
       </SheetContent>

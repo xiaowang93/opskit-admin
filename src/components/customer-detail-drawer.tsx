@@ -1,3 +1,4 @@
+import { DetailSection } from "@/components/detail-section";
 import { StatusBadge } from "@/components/status-badge";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -41,8 +42,7 @@ export function CustomerDetailDrawer({
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Customer Summary</h2>
+            <DetailSection title="Customer Summary">
               <dl className="grid gap-3 text-sm">
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted-foreground">Status</dt>
@@ -73,22 +73,20 @@ export function CustomerDetailDrawer({
                   <dd className="text-right">{customer.lastActivity}</dd>
                 </div>
               </dl>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4">
-              <h2 className="text-sm font-medium">Operational Context</h2>
+            <DetailSection title="Operational Context">
               <p className="text-sm text-muted-foreground">
                 This customer profile summarizes current account activity,
                 operational workload, and support context for account teams.
               </p>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Recent Activity</h2>
+            <DetailSection title="Recent Activity">
               <ol className="grid gap-3 text-sm">
                 <li className="grid gap-1">
                   <span className="font-medium">Profile updated</span>
@@ -109,16 +107,15 @@ export function CustomerDetailDrawer({
                   </span>
                 </li>
               </ol>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4 pb-4">
-              <h2 className="text-sm font-medium">Recommended Next Action</h2>
+            <DetailSection title="Recommended Next Action">
               <p className="text-sm text-muted-foreground">
                 {recommendedNextAction[customer.status]}
               </p>
-            </section>
+            </DetailSection>
           </>
         ) : null}
       </SheetContent>

@@ -1,3 +1,4 @@
+import { DetailSection } from "@/components/detail-section";
 import { StatusBadge } from "@/components/status-badge";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -42,8 +43,7 @@ export function AssetDetailDrawer({
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Asset Summary</h2>
+            <DetailSection title="Asset Summary">
               <dl className="grid gap-3 text-sm">
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted-foreground">Status</dt>
@@ -74,23 +74,21 @@ export function AssetDetailDrawer({
                   <dd className="text-right">{asset.lastInspected}</dd>
                 </div>
               </dl>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4">
-              <h2 className="text-sm font-medium">Operational Context</h2>
+            <DetailSection title="Operational Context">
               <p className="text-sm text-muted-foreground">
                 This asset profile highlights its current operational state,
                 ownership context, and maintenance signals that may need team
                 attention.
               </p>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Recent Activity</h2>
+            <DetailSection title="Recent Activity">
               <ol className="grid gap-3 text-sm">
                 <li className="grid gap-1">
                   <span className="font-medium">Inspection completed</span>
@@ -111,16 +109,15 @@ export function AssetDetailDrawer({
                   </span>
                 </li>
               </ol>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4 pb-4">
-              <h2 className="text-sm font-medium">Recommended Next Action</h2>
+            <DetailSection title="Recommended Next Action">
               <p className="text-sm text-muted-foreground">
                 {recommendedNextAction[asset.status]}
               </p>
-            </section>
+            </DetailSection>
           </>
         ) : null}
       </SheetContent>
