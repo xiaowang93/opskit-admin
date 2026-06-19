@@ -1,3 +1,4 @@
+import { DetailSection } from "@/components/detail-section";
 import { StatusBadge } from "@/components/status-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -57,8 +58,7 @@ export function WorkOrderDetailDrawer({
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Work Order Summary</h2>
+            <DetailSection title="Work Order Summary">
               <dl className="grid gap-3 text-sm">
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted-foreground">Status</dt>
@@ -91,21 +91,19 @@ export function WorkOrderDetailDrawer({
                   <dd className="text-right">{workOrder.scheduledTime}</dd>
                 </div>
               </dl>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4">
-              <h2 className="text-sm font-medium">Description</h2>
+            <DetailSection title="Description">
               <p className="text-sm text-muted-foreground">
                 {workOrder.description}
               </p>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-3 px-4">
-              <h2 className="text-sm font-medium">Operational Timeline</h2>
+            <DetailSection title="Operational Timeline">
               <ol className="grid gap-3 text-sm">
                 <li className="grid gap-1">
                   <span className="font-medium">Created</span>
@@ -126,21 +124,19 @@ export function WorkOrderDetailDrawer({
                   </span>
                 </li>
               </ol>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-2 px-4 pb-4">
-              <h2 className="text-sm font-medium">Recommended Next Action</h2>
+            <DetailSection title="Recommended Next Action">
               <p className="text-sm text-muted-foreground">
                 {recommendedNextAction[workOrder.status]}
               </p>
-            </section>
+            </DetailSection>
 
             <Separator />
 
-            <section className="grid gap-3 px-4 pb-4">
-              <h2 className="text-sm font-medium">Available Actions</h2>
+            <DetailSection title="Available Actions">
               <div className="flex flex-col gap-2 sm:flex-row">
                 {availableActions[workOrder.status].map((action, index) => (
                   <Button
@@ -155,7 +151,7 @@ export function WorkOrderDetailDrawer({
                   </Button>
                 ))}
               </div>
-            </section>
+            </DetailSection>
           </>
         ) : null}
       </SheetContent>
