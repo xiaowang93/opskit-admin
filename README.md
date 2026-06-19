@@ -105,6 +105,30 @@ DetailSection now covers 4 detail drawers:
 - Asset Detail Drawer
 - Billing Detail Drawer
 
+## Screenshots
+
+### Work Orders Overview
+
+![Work Orders Overview](public/screenshots/work-orders.png)
+
+### Customer Detail Drawer
+
+![Customer Detail Drawer](public/screenshots/customer-detail.png)
+
+### Billing Detail Drawer
+
+![Billing Detail Drawer](public/screenshots/billing-detail.png)
+
+### Reports Empty State
+
+![Reports Empty State](public/screenshots/reports-empty-state.png)
+
+### Settings Loading State
+
+![Settings Loading State](public/screenshots/settings-loading-state.png)
+
+Screenshots are included to show the main list, detail drawer, empty state, and loading state patterns.
+
 ## Tech Stack
 
 - Next.js
@@ -149,5 +173,4 @@ DetailSection now covers 4 detail drawers:
 ## Next Steps
 
 - Polish visual consistency
-- Add screenshots to README later
 - Prepare final project summary
