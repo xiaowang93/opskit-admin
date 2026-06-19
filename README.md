@@ -30,6 +30,8 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Shared LoadingState component
 - Shared DetailSection component
 - Unified detail drawer section layout
+- DetailSection applied across all detail drawers
+- Unified detail drawer section layout for Work Orders, Customers, Assets, and Billing
 - Responsive DataTableCard
 - Responsive AdminShell
 - Mobile-friendly horizontal table scrolling
@@ -96,13 +98,12 @@ The current Demo Kit covers common B2B SaaS admin state design:
 - Loading states
 - Responsive navigation and tables
 
-The detail drawer pattern has started moving into reusable structure:
+DetailSection now covers 4 detail drawers:
 
+- Work Order Detail Drawer
 - Customer Detail Drawer
 - Asset Detail Drawer
 - Billing Detail Drawer
-
-These drawers now use the shared DetailSection component for consistent section layout.
 
 ## Tech Stack
 
@@ -148,6 +149,5 @@ These drawers now use the shared DetailSection component for consistent section 
 ## Next Steps
 
 - Polish visual consistency
-- Apply DetailSection to Work Order Detail Drawer
 - Add screenshots to README later
 - Prepare final project summary
