@@ -28,6 +28,8 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Shared DataTableCard
 - Shared EmptyState component
 - Shared LoadingState component
+- Shared DetailSection component
+- Unified detail drawer section layout
 - Responsive DataTableCard
 - Responsive AdminShell
 - Mobile-friendly horizontal table scrolling
@@ -94,6 +96,14 @@ The current Demo Kit covers common B2B SaaS admin state design:
 - Loading states
 - Responsive navigation and tables
 
+The detail drawer pattern has started moving into reusable structure:
+
+- Customer Detail Drawer
+- Asset Detail Drawer
+- Billing Detail Drawer
+
+These drawers now use the shared DetailSection component for consistent section layout.
+
 ## Tech Stack
 
 - Next.js
@@ -111,6 +121,7 @@ The current Demo Kit covers common B2B SaaS admin state design:
 - `src/components/data-table-card.tsx`: Shared search + table card pattern with responsive horizontal scrolling.
 - `src/components/empty-state.tsx`: Shared empty state component for blank or unavailable data scenarios.
 - `src/components/loading-state.tsx`: Shared loading state component for async or pending data scenarios.
+- `src/components/detail-section.tsx`: Shared section wrapper for detail drawers, including title, optional description, content spacing, and consistent layout.
 - `src/components/work-order-summary-cards.tsx`: Shows the Work Orders status summary cards.
 - `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
 - `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
@@ -137,5 +148,6 @@ The current Demo Kit covers common B2B SaaS admin state design:
 ## Next Steps
 
 - Polish visual consistency
-- Extract shared detail drawer patterns
+- Apply DetailSection to Work Order Detail Drawer
 - Add screenshots to README later
+- Prepare final project summary
