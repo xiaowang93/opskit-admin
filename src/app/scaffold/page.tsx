@@ -1,4 +1,5 @@
 import { AdminShell } from "@/components/admin-shell";
+import { CopyPromptBlock } from "@/components/copy-prompt-block";
 import { DetailSection } from "@/components/detail-section";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
@@ -101,6 +102,56 @@ const vendorExpectedFiles = [
   "src/components/vendor-detail-drawer.tsx",
   "src/components/admin-shell.tsx only if navigation needs a new link",
 ];
+
+const modulePromptTemplate = `你正在操作这个项目：
+
+/Users/fortune/Desktop/opskit-admin
+
+当前目标：
+根据下面的 Module Brief 生成一个新的 B2B SaaS 后台模块。
+
+Module Brief：
+
+* Module name:
+* Route:
+* Business object:
+* Primary user role:
+* Page pattern:
+* Main user goal:
+* Primary action:
+* Table columns:
+* Status values:
+* Detail drawer structure:
+
+允许修改：
+
+* src/app/[module]/page.tsx
+* src/data/[module].ts
+* src/components/[module]-detail-drawer.tsx
+* src/components/admin-shell.tsx only if navigation needs a new link
+
+不允许修改：
+
+* README.md
+* package.json
+* package-lock.json
+* docs/
+* unrelated pages
+* unrelated components
+
+页面要求：
+
+* 复用 AdminShell、PageHeader、SummaryCardGrid、DataTableCard、StatusBadge、DetailSection
+* 使用静态 mock data
+* 不接入后端
+* 不安装新依赖
+* 不做大范围重构
+* 保持和现有后台页面一致的布局风格
+
+完成后提醒我运行：
+
+npm run build
+git status`;
 
 export default function ScaffoldGuidePage() {
   return (
@@ -275,6 +326,15 @@ export default function ScaffoldGuidePage() {
                 <div>git status</div>
               </div>
             </div>
+          </DetailSection>
+        </Card>
+
+        <Card>
+          <DetailSection
+            title="Codex Prompt 模板：生成新模块"
+            description="复制下面的模板，并把 Module Brief 中的字段替换成你的新模块信息。每次只让 Codex 生成一个小模块，避免大范围不可控修改。"
+          >
+            <CopyPromptBlock content={modulePromptTemplate} />
           </DetailSection>
         </Card>
 
