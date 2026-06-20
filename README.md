@@ -4,9 +4,14 @@ OpsKit Admin is a B2B SaaS Admin Demo Kit for capturing common page patterns and
 
 It is not a real commercial admin product. It is intended for design presentation, componentization practice, and validating AI-assisted development workflows.
 
+OpsKit Scaffold v2 extends the demo kit with reusable scaffold documentation, a Chinese scaffold guide page, a copyable Codex prompt template, and a generated Vendors demo module.
+
 ## Online Demo
 
 [https://opskit-admin.vercel.app/](https://opskit-admin.vercel.app/)
+
+- Scaffold Guide: [https://opskit-admin.vercel.app/scaffold](https://opskit-admin.vercel.app/scaffold)
+- Vendors Module: [https://opskit-admin.vercel.app/vendors](https://opskit-admin.vercel.app/vendors)
 
 ## Completed Modules
 
@@ -17,6 +22,8 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Billing List
 - Reports List
 - Settings
+- Scaffold Guide Page
+- Vendors List
 - Status Summary Cards
 - Search Bar
 - Filter Drawer
@@ -25,6 +32,7 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Customer Detail Drawer
 - Asset Detail Drawer
 - Billing Detail Drawer
+- Vendor Detail Drawer
 - Create Work Order Drawer
 - Shared PageHeader
 - Shared SummaryCardGrid
@@ -40,8 +48,10 @@ It is not a real commercial admin product. It is intended for design presentatio
 - Responsive AdminShell
 - Mobile-friendly horizontal table scrolling
 - Mobile navigation with Sheet menu
+- Copyable Codex Prompt Template
 - Empty state example in Reports module
 - Loading state example in Settings module
+- Vendors Mock Data
 - Settings module
 - Workspace Profile card
 - Role & Permission Rules table
@@ -56,17 +66,24 @@ It is not a real commercial admin product. It is intended for design presentatio
 - `/billing`: Billing
 - `/reports`: Reports, including a Custom Report Templates empty state example
 - `/settings`: Workspace configuration, roles, notification rules, system controls, and a System Sync Status loading state example
+- `/scaffold`: Chinese scaffold guide, vendor brief example, and copyable Codex prompt template
+- `/vendors`: Vendors list page with summary cards, status badges, and vendor detail drawer
 
 ## Project Status
 
-The current Demo Kit covers 6 common B2B SaaS admin modules:
+The current Demo Kit covers 7 common B2B SaaS admin modules:
 
 - Work Orders
 - Customers
 - Assets
+- Vendors
 - Billing
 - Reports
 - Settings
+
+OpsKit Scaffold v2 adds a reusable module generation workflow on top of the original demo kit. It includes documentation for component layers, page patterns, module briefs, Codex prompt templates, and a generated Vendors module used to validate the workflow.
+
+The Vendors module is a generated demo module, not a real vendor management system.
 
 The project has moved from page-by-page stacking into shared pattern extraction for reusable admin UI structures.
 
@@ -82,6 +99,7 @@ The current Demo Kit now covers the common B2B SaaS admin list + detail drawer p
 - Work Orders
 - Customers
 - Assets
+- Vendors
 - Billing
 
 AdminShell supports a foundational responsive layout:
@@ -102,11 +120,12 @@ The current Demo Kit covers common B2B SaaS admin state design:
 - Loading states
 - Responsive navigation and tables
 
-DetailSection now covers 4 detail drawers:
+DetailSection now covers 5 detail drawers:
 
 - Work Order Detail Drawer
 - Customer Detail Drawer
 - Asset Detail Drawer
+- Vendor Detail Drawer
 - Billing Detail Drawer
 
 ## Screenshots
@@ -131,7 +150,15 @@ DetailSection now covers 4 detail drawers:
 
 ![Settings Loading State](public/screenshots/settings-loading-state.png)
 
-Screenshots are included to show the main list, detail drawer, empty state, and loading state patterns.
+### Scaffold Guide
+
+![Scaffold Guide](public/screenshots/scaffold-guide.png)
+
+### Vendors Module
+
+![Vendors Module](public/screenshots/vendors.png)
+
+Screenshots are included to show list pages, detail drawers, empty states, loading states, scaffold documentation, and generated module examples.
 
 ## Tech Stack
 
@@ -151,6 +178,10 @@ Screenshots are included to show the main list, detail drawer, empty state, and 
 - `src/components/empty-state.tsx`: Shared empty state component for blank or unavailable data scenarios.
 - `src/components/loading-state.tsx`: Shared loading state component for async or pending data scenarios.
 - `src/components/detail-section.tsx`: Shared section wrapper for detail drawers, including title, optional description, content spacing, and consistent layout.
+- `src/app/scaffold/page.tsx`: Online Chinese scaffold guide page with module brief example and copyable Codex prompt template.
+- `src/components/copy-prompt-block.tsx`: Small client component for displaying and copying reusable Codex prompt templates.
+- `src/app/vendors/page.tsx`: Generated Vendors demo module list page.
+- `src/components/vendor-detail-drawer.tsx`: Vendor detail drawer for reviewing vendor summary, operational context, recent activity, and recommended next action.
 - `src/components/work-order-summary-cards.tsx`: Shows the Work Orders status summary cards.
 - `src/components/work-orders-table.tsx`: Renders the Work Orders table and row action button.
 - `src/components/work-order-filter-drawer.tsx`: Provides the static filter drawer for refining the work order queue.
@@ -165,6 +196,21 @@ Screenshots are included to show the main list, detail drawer, empty state, and 
 - `src/data/billing.ts`: Stores Billing mock data and related TypeScript types.
 - `src/data/reports.ts`: Stores Reports mock data and related TypeScript types.
 - `src/data/settings.ts`: Stores Settings mock data and related TypeScript types.
+- `src/data/vendors.ts`: Stores Vendors mock data and related TypeScript types.
+
+## Documentation Structure
+
+- `docs/component-map.md`
+- `docs/page-patterns.md`
+- `docs/codex-prompts.md`
+- `docs/module-generation-workflow.md`
+- `docs/module-brief-template.md`
+- `docs/scaffold-v2-summary.md`
+- `docs/examples/vendor-module-brief.md`
+- `docs/examples/vendor-generation-notes.md`
+- `docs/zh/scaffold-guide.md`
+
+These docs capture component layers, page patterns, module generation workflow, brief templates, prompt templates, and scaffold validation notes.
 
 ## Development Principles
 
@@ -173,8 +219,15 @@ Screenshots are included to show the main list, detail drawer, empty state, and 
 - Commit only after the build succeeds.
 - Make the page work first, then extract components.
 - Start with mock data before connecting a backend.
+- Start from a module brief before generating a new module.
+- Keep Codex tasks scoped and reviewable.
+- Validate generated modules before committing.
+- Avoid presenting generated demo modules as real production systems.
 
 ## Next Steps
 
-- Polish visual consistency
-- Prepare final project summary
+- Update portfolio case study with Scaffold v2
+- Capture additional drawer screenshots if needed
+- Add more module brief examples
+- Generate another module using the same workflow
+- Explore a China-friendly deployment mirror as a side task
