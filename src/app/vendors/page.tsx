@@ -1,12 +1,25 @@
+"use client";
+
+import { useState } from "react";
+
 import { AdminShell } from "@/components/admin-shell";
 import { DataTableCard } from "@/components/data-table-card";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
 import { SummaryCardGrid } from "@/components/summary-card-grid";
 import { Button } from "@/components/ui/button";
-import { vendors, vendorSummaryCards } from "@/data/vendors";
+import { VendorDetailDrawer } from "@/components/vendor-detail-drawer";
+import { vendors, vendorSummaryCards, type Vendor } from "@/data/vendors";
 
 export default function VendorsPage() {
+  const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  function handleViewDetails(vendor: Vendor) {
+    setSelectedVendor(vendor);
+    setIsDetailOpen(true);
+  }
+
   return (
     <AdminShell activeItem="Vendors">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
@@ -44,11 +57,17 @@ export default function VendorsPage() {
               key={`${vendor.id}-action`}
               variant="outline"
               size="sm"
-              disabled
+              onClick={() => handleViewDetails(vendor)}
             >
               View Details
             </Button>,
           ])}
+        />
+
+        <VendorDetailDrawer
+          vendor={selectedVendor}
+          open={isDetailOpen}
+          onOpenChange={setIsDetailOpen}
         />
       </div>
     </AdminShell>

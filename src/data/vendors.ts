@@ -12,6 +12,10 @@ export type Vendor = {
   coverageArea: string;
   openJobs: number;
   lastUpdated: string;
+  primaryContact: string;
+  readinessNote: string;
+  riskNote: string;
+  recentActivity: string[];
 };
 
 export const vendors: Vendor[] = [
@@ -23,6 +27,14 @@ export const vendors: Vendor[] = [
     coverageArea: "Pacific Northwest",
     openJobs: 8,
     lastUpdated: "Jun 18, 2026",
+    primaryContact: "Maya Chen",
+    readinessNote: "Coverage team is staffed and ready for standard dispatch.",
+    riskNote: "No current operational risk flagged.",
+    recentActivity: [
+      "Vendor profile reviewed",
+      "Coverage area updated",
+      "Latest assignment completed",
+    ],
   },
   {
     id: "VEN-1002",
@@ -32,6 +44,14 @@ export const vendors: Vendor[] = [
     coverageArea: "California",
     openJobs: 3,
     lastUpdated: "Jun 17, 2026",
+    primaryContact: "Owen Brooks",
+    readinessNote: "Awaiting final coverage confirmation before expansion.",
+    riskNote: "Pending review for service availability in southern regions.",
+    recentActivity: [
+      "Vendor profile reviewed",
+      "Coverage area updated",
+      "Review request opened",
+    ],
   },
   {
     id: "VEN-1003",
@@ -41,6 +61,14 @@ export const vendors: Vendor[] = [
     coverageArea: "Mountain West",
     openJobs: 6,
     lastUpdated: "Jun 16, 2026",
+    primaryContact: "Priya Shah",
+    readinessNote: "Maintenance crews are available for recurring work.",
+    riskNote: "No current operational risk flagged.",
+    recentActivity: [
+      "Vendor profile reviewed",
+      "Latest assignment completed",
+      "Service readiness confirmed",
+    ],
   },
   {
     id: "VEN-1004",
@@ -50,6 +78,14 @@ export const vendors: Vendor[] = [
     coverageArea: "Northeast",
     openJobs: 5,
     lastUpdated: "Jun 14, 2026",
+    primaryContact: "Leo Martins",
+    readinessNote: "Response team is available but requires risk follow-up.",
+    riskNote: "Escalated response delays reported in the last review cycle.",
+    recentActivity: [
+      "Operational risk flagged",
+      "Coverage area updated",
+      "Review request opened",
+    ],
   },
   {
     id: "VEN-1005",
@@ -59,6 +95,14 @@ export const vendors: Vendor[] = [
     coverageArea: "Midwest",
     openJobs: 0,
     lastUpdated: "Jun 05, 2026",
+    primaryContact: "Nina Patel",
+    readinessNote: "Vendor is paused and not available for assignment.",
+    riskNote: "Inactive status requires reactivation review before dispatch.",
+    recentActivity: [
+      "Vendor marked inactive",
+      "Assignment queue cleared",
+      "Reactivation review pending",
+    ],
   },
   {
     id: "VEN-1006",
@@ -68,6 +112,14 @@ export const vendors: Vendor[] = [
     coverageArea: "Southeast",
     openJobs: 9,
     lastUpdated: "Jun 19, 2026",
+    primaryContact: "Ethan Walker",
+    readinessNote: "Logistics network is available for new assignments.",
+    riskNote: "Capacity should be monitored due to high open job volume.",
+    recentActivity: [
+      "Vendor profile reviewed",
+      "Latest assignment completed",
+      "Capacity check completed",
+    ],
   },
 ];
 
