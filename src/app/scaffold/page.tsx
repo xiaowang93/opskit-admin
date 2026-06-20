@@ -63,10 +63,49 @@ const futureDirections = [
   "把常用 Codex prompts 整理成可复制模板",
 ];
 
+const vendorOverview = [
+  ["模块名称", "Vendors / 供应商管理"],
+  ["路由", "/vendors"],
+  ["业务对象", "外部服务商或供应商"],
+  ["主要使用角色", "运营经理"],
+  ["页面模式", "列表页 + 详情抽屉"],
+  ["用户目标", "查看供应商状态、服务范围和运营可用性"],
+  ["主要操作", "新增供应商"],
+  ["次要操作", "查看详情、按状态筛选、检查风险供应商"],
+];
+
+const vendorFields = [
+  "Vendor ID",
+  "Vendor name",
+  "Service type",
+  "Status",
+  "Coverage area",
+  "Open jobs",
+  "Last updated",
+  "Actions",
+];
+
+const vendorStatuses = ["Active", "Pending review", "Inactive", "At risk"];
+
+const vendorDrawerSections = [
+  "Header：供应商名称、ID、服务类型、覆盖区域",
+  "Summary section：状态、开放任务数、最近更新时间、联系人",
+  "Context section：服务范围、可用性说明、风险说明",
+  "Activity section：最近分配、审核记录、状态变更",
+  "Next action：判断是否可以继续分配任务",
+];
+
+const vendorExpectedFiles = [
+  "src/app/vendors/page.tsx",
+  "src/data/vendors.ts",
+  "src/components/vendor-detail-drawer.tsx",
+  "src/components/admin-shell.tsx only if navigation needs a new link",
+];
+
 export default function ScaffoldGuidePage() {
   return (
     <AdminShell activeItem="Scaffold Guide">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <PageHeader
           title="OpsKit Scaffold 中文指南"
           description="用于沉淀 B2B SaaS 后台页面模式、模块生成流程和 AI-assisted prototyping 工作流。"
@@ -149,6 +188,76 @@ export default function ScaffoldGuidePage() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+            </div>
+          </DetailSection>
+        </Card>
+
+        <Card>
+          <DetailSection
+            title="模块 Brief 示例：供应商管理"
+            description="这个示例展示新模块在生成代码前如何定义范围、字段、状态和详情抽屉结构。"
+          >
+            <div className="space-y-6 text-sm leading-7 text-muted-foreground">
+              <div className="space-y-3">
+                <h3 className="font-medium text-foreground">模块概览</h3>
+                <dl className="grid gap-3 md:grid-cols-2">
+                  {vendorOverview.map(([label, value]) => (
+                    <div key={label} className="grid gap-1">
+                      <dt className="text-muted-foreground">{label}</dt>
+                      <dd className="font-medium text-foreground">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-medium text-foreground">列表页字段</h3>
+                <ul className="grid list-disc gap-2 pl-5 md:grid-cols-2">
+                  {vendorFields.map((field) => (
+                    <li key={field}>{field}</li>
+                  ))}
+                </ul>
+                <p>
+                  列表字段应该优先支持扫描、比较和行动，不要一开始就铺太多字段。
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-medium text-foreground">状态模型</h3>
+                <ul className="grid list-disc gap-2 pl-5 md:grid-cols-2">
+                  {vendorStatuses.map((status) => (
+                    <li key={status}>{status}</li>
+                  ))}
+                </ul>
+                <p>
+                  状态会影响 badge 展示、筛选、行优先级和详情抽屉中的可用操作。
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-medium text-foreground">
+                  详情抽屉结构
+                </h3>
+                <ul className="list-disc space-y-2 pl-5">
+                  {vendorDrawerSections.map((section) => (
+                    <li key={section}>{section}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-medium text-foreground">
+                  未来代码生成范围
+                </h3>
+                <ul className="list-disc space-y-2 pl-5 font-mono text-xs leading-6 text-foreground">
+                  {vendorExpectedFiles.map((file) => (
+                    <li key={file}>{file}</li>
+                  ))}
+                </ul>
+                <p>
+                  当前区块只是 Brief 示例，不代表已经生成 Vendors 模块。
+                </p>
+              </div>
             </div>
           </DetailSection>
         </Card>
