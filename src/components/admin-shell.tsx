@@ -17,6 +17,7 @@ const sidebarItems = [
   { label: "Billing", href: "/billing" },
   { label: "Reports", href: "/reports" },
   { label: "Settings", href: "/settings" },
+  { label: "Scaffold Guide", href: "/scaffold" },
 ];
 
 type AdminShellProps = {
