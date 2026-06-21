@@ -9,9 +9,9 @@ OpsKit Scaffold v2 extends the demo kit with reusable scaffold documentation, a 
 ## Online Demo
 
 - Vercel Demo: [https://opskit-admin.vercel.app/](https://opskit-admin.vercel.app/)
-- EdgeOne Mirror: [https://opskit-admin-dpb5l8unsxty.edgeone.dev/](https://opskit-admin-dpb5l8unsxty.edgeone.dev/)
-- Scaffold Guide: [https://opskit-admin-dpb5l8unsxty.edgeone.dev/scaffold](https://opskit-admin-dpb5l8unsxty.edgeone.dev/scaffold)
-- Vendors Module: [https://opskit-admin-dpb5l8unsxty.edgeone.dev/vendors](https://opskit-admin-dpb5l8unsxty.edgeone.dev/vendors)
+- EdgeOne Mirror: [https://opskit-admin-dp448387q3ai.edgeone.dev/](https://opskit-admin-dp448387q3ai.edgeone.dev/)
+- Scaffold Guide: [https://opskit-admin-dp448387q3ai.edgeone.dev/scaffold](https://opskit-admin-dp448387q3ai.edgeone.dev/scaffold)
+- Vendors Module: [https://opskit-admin-dp448387q3ai.edgeone.dev/vendors](https://opskit-admin-dp448387q3ai.edgeone.dev/vendors)
 
 ## Completed Modules
 
